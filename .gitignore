@@ -1,0 +1,8 @@
+
+.vs/
+reports/
+out/
+**/bin/
+**/obj/
+*.user
+*.diagsession
