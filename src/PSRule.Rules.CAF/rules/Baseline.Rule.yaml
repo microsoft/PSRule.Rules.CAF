@@ -1,0 +1,24 @@
+
+---
+# Synopsis: The default baseline for Azure Cloud Adoption Framework
+kind: Baseline
+metadata:
+  name: CAF.Default
+spec:
+  binding:
+    targetType:
+    - 'ResourceType'
+    targetName:
+    - 'ResourceName'
+    - 'Name'
+
+  configuration:
+    ACF_ResourceGroupPrefix: [ 'rg-' ]
+    ACF_VirtualNetworkPrefix: [ 'vnet-' ]
+    ACF_VirtualNetworkGatewayPrefix: [ 'vnet-gw-' ]
+    ACF_GatewayConnectionPrefix: [ 'cn-' ]
+    ACF_SubnetPrefix: [ 'snet-' ]
+    ACF_NetworkSecurityGroupPrefix: [ 'nsg-' ]
+    ACF_RouteTablePrefix: [ 'route-' ]
+    ACF_VirtualMachinePrefix: [ 'vm-' ]
+    ACF_StoragePrefix: [ 'stor', 'stvm', 'dls' ]

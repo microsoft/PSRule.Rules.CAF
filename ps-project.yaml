@@ -1,0 +1,30 @@
+#
+# PSRule for Cloud Adoption Framework
+#
+
+info:
+  name: PSRule.Rules.CAF
+  description: |
+    A suite of rules to validate Azure resources against the Cloud Adoption Framework (CAF) using PSRule.
+  url: https://github.com/Microsoft/PSRule.Rules.CAF
+
+repository:
+  type: git
+  url: https://github.com/Microsoft/PSRule.Rules.CAF.git
+
+bugs:
+  url: https://github.com/Microsoft/PSRule.Rules.CAF/issues
+
+modules:
+  PSRule: ^0.12.0
+  PSRule.Rules.Azure: ^0.6.0
+
+tasks:
+  clear:
+    steps:
+      - gitPrune:
+          name: origin
+          removeGone: true
+  build:
+    steps:
+      - powershell: Invoke-Build Build
