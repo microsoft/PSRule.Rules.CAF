@@ -8,6 +8,7 @@ spec:
   binding:
     targetType:
     - 'ResourceType'
+    - 'Type'
     targetName:
     - 'ResourceName'
     - 'Name'
@@ -60,6 +61,10 @@ spec:
     CAF_NotificationHubPrefix: [ 'anh-' ]
     CAF_NotificationHubNSPrefix: [ 'anhns-' ]
 
-    # Tags
-    CAF_MandatoryTags: [ ]
+    # Required tags
+    CAF_ResourceMandatoryTags: [ ]
+    CAF_ResourceGroupMandatoryTags: [ ]
+
+    # Environment tag
+    CAF_EnvironmentTag: 'Env'
     CAF_Environments: [ 'Prod', 'Dev', 'QA', 'Stage', 'Test' ]

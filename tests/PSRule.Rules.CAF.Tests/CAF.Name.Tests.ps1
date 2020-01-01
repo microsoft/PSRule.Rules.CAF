@@ -23,7 +23,7 @@ $rootPath = $PWD;
 Import-Module (Join-Path -Path $rootPath -ChildPath out/modules/PSRule.Rules.CAF) -Force;
 $here = (Resolve-Path $PSScriptRoot).Path;
 
-Describe 'CAF.Name' {
+Describe 'CAF.Name' -Tag 'name' {
     $dataPath = Join-Path -Path $here -ChildPath 'Resources.*.json';
 
     Context 'Conditions' {
