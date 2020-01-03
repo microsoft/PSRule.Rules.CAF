@@ -5,23 +5,14 @@
 # This contains rules for standard tagging suggested in the CAF.
 # https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/naming-and-tagging
 
-# Synopsis: Tag resources with mandatory tags
-Rule 'CAF.Tag.R.Required' -If { (SupportsTags) -and !(IsResourceGroup) } {
+# Synopsis: Tag resources and resource groups with mandatory tags
+Rule 'CAF.Tag.Required' -If { (SupportsTags) } {
+    # Use resource or resource group mandatory tags
     $required = $Configuration.GetStringValues('CAF_ResourceMandatoryTags')
-    if ($required.Length -eq 0) {
-        return $True
+    if ($PSRule.TargetType -eq 'Microsoft.Resources/resourceGroups') {
+        $required = $Configuration.GetStringValues('CAF_ResourceGroupMandatoryTags')
     }
-    else {
-        Exists 'Tags'
-        if ($Null -ne $TargetObject.Tags) {
-            $TargetObject.Tags | Exists $required -All
-        }
-    }
-}
-
-# Synopsis: Tag resource groups with mandatory tags
-Rule 'CAF.Tag.RG.Required' -If { (IsResourceGroup) } {
-    $required = $Configuration.GetStringValues('CAF_ResourceGroupMandatoryTags')
+    # Check mandatory tags
     if ($required.Length -eq 0) {
         return $True
     }

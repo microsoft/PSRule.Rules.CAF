@@ -175,11 +175,11 @@
         "SubscriptionId": "00000000-0000-0000-0000-000000000000"
     },
     {
-        "ResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworks/vnet-B",
-        "Id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworks/vnet-B",
+        "ResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworks/vnetB",
+        "Id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworks/vnetB",
         "Location": "region",
-        "ResourceName": "vnet-B",
-        "Name": "vnet-B",
+        "ResourceName": "vnetB",
+        "Name": "vnetB",
         "Properties": {
             "addressSpace": {
                 "addressPrefixes": [
@@ -294,11 +294,11 @@
         "SubscriptionId": "00000000-0000-0000-0000-000000000000"
     },
     {
-        "ResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworks/vnet-C",
-        "Id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworks/vnet-C",
+        "ResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworks/vnet-C-",
+        "Id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworks/vnet-C-",
         "Location": "region",
-        "ResourceName": "vnet-C",
-        "Name": "vnet-C",
+        "ResourceName": "vnet-C-",
+        "Name": "vnet-C-",
         "Properties": {
             "addressSpace": {
                 "addressPrefixes": [
@@ -2175,32 +2175,32 @@
         "SubscriptionId": "00000000-0000-0000-0000-000000000000"
     },
     {
-        "ResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B",
-        "Id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B",
+        "ResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB",
+        "Id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB",
         "Location": "region",
         "ManagedBy": null,
-        "ResourceName": "lb-B",
-        "Name": "lb-B",
+        "ResourceName": "lbB",
+        "Name": "lbB",
         "Properties": {
             "provisioningState": "Succeeded",
             "resourceGuid": "00000000-0000-0000-0000-000000000000",
             "frontendIPConfigurations": [
                 {
                     "name": "frontend-A",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/frontendIPConfigurations/frontend-A",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/frontendIPConfigurations/frontend-A",
                     "type": "Microsoft.Network/loadBalancers/frontendIPConfigurations",
                     "properties": {
                         "provisioningState": "Succeeded",
                         "privateIPAllocationMethod": "Dynamic",
                         "publicIPAddress": {
-                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/publicIPAddresses/lb-B-ip-A"
+                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/publicIPAddresses/lbB-ip-A"
                         },
                         "loadBalancingRules": [
                             {
-                                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/loadBalancingRules/rule-TCP-80"
+                                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/loadBalancingRules/rule-TCP-80"
                             },
                             {
-                                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/loadBalancingRules/rule-TCP-443"
+                                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/loadBalancingRules/rule-TCP-443"
                             }
                         ],
                         "privateIPAddressVersion": "IPv4"
@@ -2209,8 +2209,8 @@
             ],
             "backendAddressPools": [
                 {
-                    "name": "lb-B",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/backendAddressPools/lb-B",
+                    "name": "lbB",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/backendAddressPools/lbB",
                     "properties": {
                         "provisioningState": "Succeeded",
                         "backendIPConfigurations": [
@@ -2226,10 +2226,10 @@
                         ],
                         "loadBalancingRules": [
                             {
-                                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/loadBalancingRules/rule-TCP-80"
+                                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/loadBalancingRules/rule-TCP-80"
                             },
                             {
-                                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/loadBalancingRules/rule-TCP-443"
+                                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/loadBalancingRules/rule-TCP-443"
                             }
                         ]
                     },
@@ -2239,12 +2239,12 @@
             "loadBalancingRules": [
                 {
                     "name": "rule-TCP-80",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/loadBalancingRules/rule-TCP-80",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/loadBalancingRules/rule-TCP-80",
                     "type": "Microsoft.Network/loadBalancers/loadBalancingRules",
                     "properties": {
                         "provisioningState": "Succeeded",
                         "frontendIPConfiguration": {
-                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/frontendIPConfigurations/frontend-A"
+                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/frontendIPConfigurations/frontend-A"
                         },
                         "frontendPort": 80,
                         "backendPort": 80,
@@ -2256,21 +2256,21 @@
                         "allowBackendPortConflict": false,
                         "loadDistribution": "Default",
                         "backendAddressPool": {
-                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/backendAddressPools/lb-B"
+                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/backendAddressPools/lbB"
                         },
                         "probe": {
-                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/probes/probe-TCP-80"
+                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/probes/probe-TCP-80"
                         }
                     }
                 },
                 {
                     "name": "rule-TCP-443",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/loadBalancingRules/rule-TCP-443",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/loadBalancingRules/rule-TCP-443",
                     "type": "Microsoft.Network/loadBalancers/loadBalancingRules",
                     "properties": {
                         "provisioningState": "Succeeded",
                         "frontendIPConfiguration": {
-                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/frontendIPConfigurations/frontend-A"
+                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/frontendIPConfigurations/frontend-A"
                         },
                         "frontendPort": 443,
                         "backendPort": 443,
@@ -2282,10 +2282,10 @@
                         "allowBackendPortConflict": false,
                         "loadDistribution": "Default",
                         "backendAddressPool": {
-                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/backendAddressPools/lb-B"
+                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/backendAddressPools/lbB"
                         },
                         "probe": {
-                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/probes/probe-TCP-443"
+                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/probes/probe-TCP-443"
                         }
                     }
                 }
@@ -2293,7 +2293,7 @@
             "probes": [
                 {
                     "name": "probe-TCP-80",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/probes/probe-TCP-80",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/probes/probe-TCP-80",
                     "properties": {
                         "provisioningState": "Succeeded",
                         "protocol": "Tcp",
@@ -2302,7 +2302,7 @@
                         "numberOfProbes": 2,
                         "loadBalancingRules": [
                             {
-                                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/loadBalancingRules/rule-TCP-80"
+                                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/loadBalancingRules/rule-TCP-80"
                             }
                         ]
                     },
@@ -2310,7 +2310,7 @@
                 },
                 {
                     "name": "probe-TCP-443",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/probes/probe-TCP-443",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/probes/probe-TCP-443",
                     "properties": {
                         "provisioningState": "Succeeded",
                         "protocol": "Tcp",
@@ -2319,7 +2319,7 @@
                         "numberOfProbes": 2,
                         "loadBalancingRules": [
                             {
-                                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-B/loadBalancingRules/rule-TCP-443"
+                                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lbB/loadBalancingRules/rule-TCP-443"
                             }
                         ]
                     },
@@ -2412,6 +2412,74 @@
         "ResourceGroupName": "test-rg",
         "Type": "Microsoft.Network/connections",
         "ResourceType": "Microsoft.Network/connections",
+        "Tags": null,
+        "SubscriptionId": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "ResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/publicIPAddresses/pip-A",
+        "Id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/publicIPAddresses/pip-A",
+        "Identity": null,
+        "Kind": null,
+        "Location": "region",
+        "ManagedBy": null,
+        "ResourceName": "pip-A",
+        "Name": "pip-A",
+        "Plan": null,
+        "Properties": {
+            "ipAddress": "0.0.0.0",
+            "publicIPAddressVersion": "IPv4",
+            "publicIPAllocationMethod": "Static",
+            "idleTimeoutInMinutes": 4,
+            "ipTags": [],
+            "ipConfiguration": {
+                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-A/frontendIPConfigurations/config-A"
+            }
+        },
+        "ResourceGroupName": "test-rg",
+        "Type": "Microsoft.Network/publicIPAddresses",
+        "ResourceType": "Microsoft.Network/publicIPAddresses",
+        "Sku": {
+            "Name": "Basic",
+            "Tier": null,
+            "Size": null,
+            "Family": null,
+            "Model": null,
+            "Capacity": null
+        },
+        "Tags": null,
+        "SubscriptionId": "00000000-0000-0000-0000-000000000000"
+    },
+    {
+        "ResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/publicIPAddresses/pipB",
+        "Id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/publicIPAddresses/pipB",
+        "Identity": null,
+        "Kind": null,
+        "Location": "region",
+        "ManagedBy": null,
+        "ResourceName": "pipB",
+        "Name": "pipB",
+        "Plan": null,
+        "Properties": {
+            "ipAddress": "0.0.0.0",
+            "publicIPAddressVersion": "IPv4",
+            "publicIPAllocationMethod": "Static",
+            "idleTimeoutInMinutes": 4,
+            "ipTags": [],
+            "ipConfiguration": {
+                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/loadBalancers/lb-A/frontendIPConfigurations/config-A"
+            }
+        },
+        "ResourceGroupName": "test-rg",
+        "Type": "Microsoft.Network/publicIPAddresses",
+        "ResourceType": "Microsoft.Network/publicIPAddresses",
+        "Sku": {
+            "Name": "Basic",
+            "Tier": null,
+            "Size": null,
+            "Family": null,
+            "Model": null,
+            "Capacity": null
+        },
         "Tags": null,
         "SubscriptionId": "00000000-0000-0000-0000-000000000000"
     }
