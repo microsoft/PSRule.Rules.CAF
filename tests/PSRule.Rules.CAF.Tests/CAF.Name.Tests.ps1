@@ -57,13 +57,29 @@ Describe 'CAF.Name' -Tag 'name' {
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
             $ruleResult | Should -Not -BeNullOrEmpty;
             $ruleResult.Length | Should -Be 2;
-            $ruleResult.TargetName | Should -BeIn 'vnet-B', 'vnet-D';
+            $ruleResult.TargetName | Should -BeIn 'vnetB', 'vnet-C-';
 
             # Pass
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
             $ruleResult | Should -Not -BeNullOrEmpty;
             $ruleResult.Length | Should -Be 2;
-            $ruleResult.TargetName | Should -BeIn 'vnet-A', 'vnet-C';
+            $ruleResult.TargetName | Should -BeIn 'vnet-A', 'vnet-D';
+        }
+
+        It 'CAF.Name.Subnet' {
+            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Name.Subnet' };
+
+            # Fail
+            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
+            $ruleResult | Should -Not -BeNullOrEmpty;
+            $ruleResult.Length | Should -Be 2;
+            $ruleResult.TargetName | Should -BeIn 'vnetB', 'vnet-D';
+
+            # Pass
+            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
+            $ruleResult | Should -Not -BeNullOrEmpty;
+            $ruleResult.Length | Should -Be 2;
+            $ruleResult.TargetName | Should -BeIn 'vnet-A', 'vnet-C-';
         }
 
         It 'CAF.Name.VNG' {
@@ -144,6 +160,38 @@ Describe 'CAF.Name' -Tag 'name' {
             $ruleResult | Should -Not -BeNullOrEmpty;
             $ruleResult.Length | Should -Be 1;
             $ruleResult.TargetName | Should -Be 'storagea';
+        }
+
+        It 'CAF.Name.PublicIP' {
+            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Name.PublicIP' };
+
+            # Fail
+            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
+            $ruleResult | Should -Not -BeNullOrEmpty;
+            $ruleResult.Length | Should -Be 1;
+            $ruleResult.TargetName | Should -Be 'pipB';
+
+            # Pass
+            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
+            $ruleResult | Should -Not -BeNullOrEmpty;
+            $ruleResult.Length | Should -Be 1;
+            $ruleResult.TargetName | Should -Be 'pip-A';
+        }
+
+        It 'CAF.Name.LoadBalancer' {
+            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Name.LoadBalancer' };
+
+            # Fail
+            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
+            $ruleResult | Should -Not -BeNullOrEmpty;
+            $ruleResult.Length | Should -Be 1;
+            $ruleResult.TargetName | Should -Be 'lbB';
+
+            # Pass
+            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
+            $ruleResult | Should -Not -BeNullOrEmpty;
+            $ruleResult.Length | Should -Be 1;
+            $ruleResult.TargetName | Should -Be 'lb-A';
         }
     }
 }

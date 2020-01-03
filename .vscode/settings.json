@@ -23,7 +23,8 @@
     "cSpell.words": [
         "Subnet",
         "VNET",
-        "hashtable"
+        "hashtable",
+        "subnets"
     ],
     "cSpell.enabledLanguageIds": [
         "csharp",
