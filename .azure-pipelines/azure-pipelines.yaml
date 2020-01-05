@@ -6,7 +6,7 @@ variables:
   buildConfiguration: 'Release'
   disable.coverage.autogenerate: 'true'
 
- # Use build number format, i.e. 0.1.0-B1811001
+ # Use build number format, i.e. 0.1.0-B2001001
 name: $(version)-B$(date:yyMM)$(rev:rrr)
 
 trigger:
@@ -103,52 +103,50 @@ stages:
       condition: eq(variables['coverage'], 'true')
 
     # Generate artifacts
-    - task: PublishPipelineArtifact@0
+    - publish: out/modules/PSRule.Rules.CAF
       displayName: 'Publish module'
-      inputs:
-        artifactName: PSRule.Rules.CAF
-        targetPath: out/modules/PSRule.Rules.CAF
+      artifact: PSRule.Rules.CAF
       condition: and(succeeded(), eq(variables['publish'], 'true'))
 
 # Release pipeline
-# - stage: Release
-#   displayName: Release
-#   dependsOn: Build
-#   condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v0.'))
-#   jobs:
-#   - job:
-#     displayName: Live
-#     pool:
-#       vmImage: 'ubuntu-16.04'
-#     variables:
-#       isPreRelease: $[contains(variables['Build.SourceBranchName'], '-B')]
-#     steps:
+- stage: Release
+  displayName: Release
+  dependsOn: Build
+  condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/tags/v0.'))
+  jobs:
+  - job:
+    displayName: Live
+    pool:
+      vmImage: 'ubuntu-latest'
+    variables:
+      isPreRelease: $[contains(variables['Build.SourceBranchName'], '-B')]
+    steps:
 
-#     # Download module from build
-#     - task: DownloadPipelineArtifact@1
-#       displayName: 'Download module'
-#       inputs:
-#         artifactName: PSRule.Rules.CAF
-#         downloadPath: $(Build.SourcesDirectory)/out/modules/PSRule.Rules.CAF
+    # Download module from build
+    - task: DownloadPipelineArtifact@2
+      displayName: 'Download module'
+      inputs:
+        artifact: PSRule.Rules.CAF
+        path: $(Build.SourcesDirectory)/out/modules/PSRule.Rules.CAF
 
-#     # Install pipeline dependencies
-#     - powershell: ./.azure-pipelines/pipeline-deps.ps1
-#       displayName: 'Install dependencies'
+    # Install pipeline dependencies
+    - powershell: ./.azure-pipelines/pipeline-deps.ps1
+      displayName: 'Install dependencies'
 
-#     # Install pipeline dependencies and build module
-#     - powershell: Invoke-Build Release -ApiKey $(apiKey)
-#       displayName: 'Publish module'
+    # Install pipeline dependencies and build module
+    - powershell: Invoke-Build Release -ApiKey $(apiKey)
+      displayName: 'Publish module'
 
-#     # Update GitHub release
-#     - task: GitHubRelease@0
-#       displayName: 'GitHub release'
-#       inputs:
-#         gitHubConnection: 'AzureDevOps-PSRule.Rules.CAF'
-#         repositoryName: '$(Build.Repository.Name)'
-#         action: edit
-#         tag: '$(Build.SourceBranchName)'
-#         releaseNotesSource: input
-#         releaseNotes: 'See [change log](https://github.com/Microsoft/PSRule.Rules.CAF/blob/master/CHANGELOG.md)'
-#         assetUploadMode: replace
-#         addChangeLog: false
-#         isPreRelease: $(isPreRelease)
+    # Update GitHub release
+    - task: GitHubRelease@1
+      displayName: 'GitHub release'
+      inputs:
+        gitHubConnection: 'AzureDevOps-PSRule.Rules.CAF'
+        repositoryName: '$(Build.Repository.Name)'
+        action: edit
+        tag: '$(Build.SourceBranchName)'
+        releaseNotesSource: inline
+        releaseNotesInline: 'See [change log](https://github.com/Microsoft/PSRule.Rules.CAF/blob/master/CHANGELOG.md)'
+        assetUploadMode: replace
+        addChangeLog: false
+        isPreRelease: $(isPreRelease)
