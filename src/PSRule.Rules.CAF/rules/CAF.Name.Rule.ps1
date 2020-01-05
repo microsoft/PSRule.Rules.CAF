@@ -61,11 +61,21 @@ Rule 'CAF.Name.Subnet' -Type 'Microsoft.Network/virtualNetworks', 'Microsoft.Net
 # Synopsis: Use standard virtual network gateway names
 Rule 'CAF.Name.VNG' -Type 'Microsoft.Network/virtualNetworkGateways' {
     $Assert.StartsWith($TargetObject, 'Name', $Configuration.CAF_VirtualNetworkGatewayPrefix)
+
+    # Name requirements
+    $Assert.GreaterOrEqual($TargetObject, 'Name', 1)
+    $Assert.LessOrEqual($TargetObject, 'Name', 80)
+    Match 'Name' '^[\w][-\w_\.]*[\w_]$'
 }
 
 # Synopsis: Use standard virtual networks gateway connection names
 Rule 'CAF.Name.Connection' -Type 'Microsoft.Network/connections' {
     $Assert.StartsWith($TargetObject, 'Name', $Configuration.CAF_GatewayConnectionPrefix)
+
+    # Name requirements
+    $Assert.GreaterOrEqual($TargetObject, 'Name', 1)
+    $Assert.LessOrEqual($TargetObject, 'Name', 80)
+    Match 'Name' '^[\w][-\w_\.]*[\w_]$'
 }
 
 # Synopsis: Use standard network security group names
