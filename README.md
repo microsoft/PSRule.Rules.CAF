@@ -15,11 +15,64 @@ If you do not see your problem captured, please file a new issue and follow the 
 
 If you have any problems with the [PSRule][engine] engine, please check the project GitHub [issues](https://github.com/Microsoft/PSRule/issues) page instead.
 
+## Getting the modules
+
+This project requires the `PSRule`, `PSRule.Rules.Azure` and `Az` PowerShell modules. For details on each see [install].
+
+You can download and install these modules from the PowerShell Gallery.
+
+Module             | Description | Downloads / instructions
+------             | ----------- | ------------------------
+PSRule.Rules.CAF   | Validate Azure resources against the CAF. | [latest][module] / [instructions][install]
+
+## Getting started
+
+### Export resource data
+
+To validate Azure resources running in a subscription, export the resource data with the `Export-AzRuleData` cmdlet.
+The `Export-AzRuleData` cmdlet exports a resource graph for one or more subscriptions that can be used for analysis with the rules in this module.
+
+By default, resources for the current subscription context are exported. See below for more options.
+
+Before running this command you should connect to Azure by using the `Connect-AzAccount` cmdlet.
+
+For example:
+
+```powershell
+# Authenticate to Azure, only required if not currently connected
+Connect-AzAccount;
+
+# Export resource data
+Export-AzRuleData;
+```
+
+### Validate resources
+
+To validate Azure resources use the extracted data with the `Invoke-PSRule` cmdlet.
+
+For example:
+
+```powershell
+Invoke-PSRule -InputPath .\*.json -Module 'PSRule.Rules.CAF';
+```
+
 ## Rule reference
 
 For a list of rules included in the `PSRule.Rules.CAF` module see:
 
 - [Module rule reference](docs/rules/en/module.md)
+
+## Language reference
+
+### Commands
+
+This module uses commands from the `PSRule.Rules.Azure` module to export resource configuration data.
+The `PSRule.Rules.Azure` module is included as a dependency of `PSRule.Rules.CAF`.
+
+For details of `PSRule.Rules.Azure` commands see:
+
+- [Export-AzRuleData](https://github.com/BernieWhite/PSRule.Rules.Azure/blob/master/docs/commands/PSRule.Rules.Azure/en-US/Export-AzRuleData.md) - Export resource configuration data from Azure subscriptions.
+- [Export-AzTemplateRuleData](https://github.com/BernieWhite/PSRule.Rules.Azure/blob/master/docs/commands/PSRule.Rules.Azure/en-US/Export-AzTemplateRuleData.md) - Export resource configuration data from Azure templates.
 
 ## Changes and versioning
 
