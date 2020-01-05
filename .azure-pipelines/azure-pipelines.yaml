@@ -126,8 +126,8 @@ stages:
     - task: DownloadPipelineArtifact@2
       displayName: 'Download module'
       inputs:
-        artifactName: PSRule.Rules.CAF
-        downloadPath: $(Build.SourcesDirectory)/out/modules/PSRule.Rules.CAF
+        artifact: PSRule.Rules.CAF
+        path: $(Build.SourcesDirectory)/out/modules/PSRule.Rules.CAF
 
     # Install pipeline dependencies
     - powershell: ./.azure-pipelines/pipeline-deps.ps1
