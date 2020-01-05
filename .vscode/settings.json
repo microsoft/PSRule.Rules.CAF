@@ -21,6 +21,7 @@
         "**/.azure-pipelines/*.yaml": "azure-pipelines"
     },
     "cSpell.words": [
+        "NSGs",
         "Subnet",
         "VNET",
         "hashtable",
