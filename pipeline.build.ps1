@@ -146,13 +146,16 @@ task VersionModule ModuleDependencies, {
         if ($_.Name -eq 'PSRule' -and $Configuration -eq 'Release') {
             @{ ModuleName = 'PSRule'; ModuleVersion = '0.13.0' }
         }
+        elseif ($_.Name -eq 'PSRule.Rules.Azure' -and $Configuration -eq 'Release') {
+            @{ ModuleName = 'PSRule.Rules.Azure'; ModuleVersion = '0.7.0' }
+        }
         else {
             @{ ModuleName = $_.Name; ModuleVersion = $_.Version }
         }
     };
     Update-ModuleManifest -Path $manifestPath -RequiredModules $requiredModules;
     $manifestContent = Get-Content -Path $manifestPath -Raw;
-    $manifestContent = $manifestContent -replace 'PSRule = ''System.Collections.Hashtable''', 'PSRule = @{ Baseline = ''CAF.Default'' }';
+    $manifestContent = $manifestContent -replace 'PSRule = ''System.Collections.Hashtable''', 'PSRule = @{ Baseline = ''CAF.Strict'' }';
     $manifestContent | Set-Content -Path $manifestPath;
 }
 
