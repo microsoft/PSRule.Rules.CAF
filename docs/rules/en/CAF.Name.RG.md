@@ -1,6 +1,6 @@
 ---
 category: Naming
-online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/master/docs/rules/en-US/CAF.Name.RG.md
+online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/master/docs/rules/en/CAF.Name.RG.md
 ---
 
 # Use standard resource group names

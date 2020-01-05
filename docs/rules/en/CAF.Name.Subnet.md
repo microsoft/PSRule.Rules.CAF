@@ -1,6 +1,6 @@
 ---
 category: Naming
-online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/master/docs/rules/en-US/CAF.Name.Subnet.md
+online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/master/docs/rules/en/CAF.Name.Subnet.md
 ---
 
 # Use standard subnet names
