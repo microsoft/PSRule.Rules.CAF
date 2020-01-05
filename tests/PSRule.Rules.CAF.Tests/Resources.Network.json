@@ -760,16 +760,16 @@
         "SubscriptionId": "00000000-0000-0000-0000-000000000000"
     },
     {
-        "ResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsg-B",
-        "Id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsg-B",
+        "ResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsgB",
+        "Id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsgB",
         "Location": "region",
-        "ResourceName": "nsg-B",
-        "Name": "nsg-B",
+        "ResourceName": "nsgB",
+        "Name": "nsgB",
         "Properties": {
             "securityRules": [
                 {
                     "name": "allow-rdp-inbound",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsg-B/securityRules/allow-rdp-inbound",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsgB/securityRules/allow-rdp-inbound",
                     "type": "Microsoft.Network/networkSecurityGroups/securityRules",
                     "properties": {
                         "protocol": "Tcp",
@@ -788,7 +788,7 @@
                 },
                 {
                     "name": "allow-dc-to-dc-inbound",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsg-B/securityRules/allow-dc-to-dc-inbound",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsgB/securityRules/allow-dc-to-dc-inbound",
                     "type": "Microsoft.Network/networkSecurityGroups/securityRules",
                     "properties": {
                         "protocol": "*",
@@ -810,7 +810,7 @@
                 },
                 {
                     "name": "allow-dc-to-dc-outbound",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsg-B/securityRules/allow-dc-to-dc-outbound",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsgB/securityRules/allow-dc-to-dc-outbound",
                     "type": "Microsoft.Network/networkSecurityGroups/securityRules",
                     "properties": {
                         "protocol": "*",
@@ -832,7 +832,7 @@
                 },
                 {
                     "name": "deny-rdp-double-hop-outbound",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsg-B/securityRules/deny-rdp-double-hop-outbound",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsgB/securityRules/deny-rdp-double-hop-outbound",
                     "type": "Microsoft.Network/networkSecurityGroups/securityRules",
                     "properties": {
                         "description": "Prevent outbound RDP.",
@@ -855,7 +855,7 @@
             "defaultSecurityRules": [
                 {
                     "name": "AllowVnetInBound",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsg-B/defaultSecurityRules/AllowVnetInBound",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsgB/defaultSecurityRules/AllowVnetInBound",
                     "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules",
                     "properties": {
                         "description": "Allow inbound traffic from all VMs in VNET",
@@ -875,7 +875,7 @@
                 },
                 {
                     "name": "AllowAzureLoadBalancerInBound",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsg-B/defaultSecurityRules/AllowAzureLoadBalancerInBound",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsgB/defaultSecurityRules/AllowAzureLoadBalancerInBound",
                     "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules",
                     "properties": {
                         "description": "Allow inbound traffic from azure load balancer",
@@ -895,7 +895,7 @@
                 },
                 {
                     "name": "DenyAllInBound",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsg-B/defaultSecurityRules/DenyAllInBound",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsgB/defaultSecurityRules/DenyAllInBound",
                     "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules",
                     "properties": {
                         "description": "Deny all inbound traffic",
@@ -915,7 +915,7 @@
                 },
                 {
                     "name": "AllowVnetOutBound",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsg-B/defaultSecurityRules/AllowVnetOutBound",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsgB/defaultSecurityRules/AllowVnetOutBound",
                     "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules",
                     "properties": {
                         "description": "Allow outbound traffic from all VMs to all VMs in VNET",
@@ -935,7 +935,7 @@
                 },
                 {
                     "name": "AllowInternetOutBound",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsg-B/defaultSecurityRules/AllowInternetOutBound",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsgB/defaultSecurityRules/AllowInternetOutBound",
                     "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules",
                     "properties": {
                         "description": "Allow outbound traffic from all VMs to Internet",
@@ -955,7 +955,7 @@
                 },
                 {
                     "name": "DenyAllOutBound",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsg-B/defaultSecurityRules/DenyAllOutBound",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkSecurityGroups/nsgB/defaultSecurityRules/DenyAllOutBound",
                     "type": "Microsoft.Network/networkSecurityGroups/defaultSecurityRules",
                     "properties": {
                         "description": "Deny all outbound traffic",

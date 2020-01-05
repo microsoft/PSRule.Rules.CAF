@@ -114,6 +114,22 @@ Describe 'CAF.Name' -Tag 'name' {
             $ruleResult.TargetName | Should -BeIn 'cn-expressroute', 'cn-C', 'cn-A';
         }
 
+        It 'CAF.Name.NSG' {
+            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Name.NSG' };
+
+            # Fail
+            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
+            $ruleResult | Should -Not -BeNullOrEmpty;
+            $ruleResult.Length | Should -Be 1;
+            $ruleResult.TargetName | Should -BeIn 'nsgB';
+
+            # Pass
+            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
+            $ruleResult | Should -Not -BeNullOrEmpty;
+            $ruleResult.Length | Should -Be 2;
+            $ruleResult.TargetName | Should -BeIn 'nsg-A', 'nsg-C';
+        }
+
         It 'CAF.Name.Route' {
             $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Name.Route' };
 
