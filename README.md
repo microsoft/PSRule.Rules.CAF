@@ -15,6 +15,12 @@ If you do not see your problem captured, please file a new issue and follow the 
 
 If you have any problems with the [PSRule][engine] engine, please check the project GitHub [issues](https://github.com/Microsoft/PSRule/issues) page instead.
 
+## Rule reference
+
+For a list of rules included in the `PSRule.Rules.CAF` module see:
+
+- [Module rule reference](docs/rules/en/module.md)
+
 ## Changes and versioning
 
 Modules in this repository will use the [semantic versioning](http://semver.org/) model to declare breaking changes from v1.0.0.
