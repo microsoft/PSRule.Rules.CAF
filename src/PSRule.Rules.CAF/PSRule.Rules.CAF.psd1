@@ -96,7 +96,7 @@ AliasesToExport = @()
 PrivateData = @{
     PSData = @{
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = @('Rule', 'PSRule', 'Azure', 'CAF', 'Cloud')
+        Tags = @('PSRule', 'PSRule-rules', 'Rule', 'Azure', 'CAF', 'Cloud')
 
         # A URL to the license for this module.
         LicenseUri = 'https://github.com/Microsoft/PSRule.Rules.CAF/blob/master/LICENSE'
@@ -111,7 +111,7 @@ PrivateData = @{
         ReleaseNotes = 'https://github.com/Microsoft/PSRule.Rules.CAF/blob/master/CHANGELOG.md'
     } # End of PSData hashtable
     PSRule = @{
-        Baseline = 'CAF.Default'
+        Baseline = 'CAF.Strict'
     }
 } # End of PrivateData hashtable
 

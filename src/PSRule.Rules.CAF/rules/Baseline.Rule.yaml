@@ -3,7 +3,7 @@
 # Synopsis: The default baseline for Azure Cloud Adoption Framework
 kind: Baseline
 metadata:
-  name: CAF.Default
+  name: CAF.Strict
 spec:
   binding:
     targetType:
