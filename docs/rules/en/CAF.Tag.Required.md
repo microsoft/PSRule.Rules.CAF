@@ -1,6 +1,6 @@
 ---
 category: Tagging
-online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/master/docs/rules/en-US/CAF.Tag.Required.md
+online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/master/docs/rules/en/CAF.Tag.Required.md
 ---
 
 # Use mandatory tags
