@@ -22,11 +22,13 @@ param (
     [String]$AssertStyle = 'AzurePipelines'
 )
 
+Write-Host -Object "[Pipeline] -- PowerShell: v$($PSVersionTable.PSVersion.ToString())" -ForegroundColor Green;
 Write-Host -Object "[Pipeline] -- PWD: $PWD" -ForegroundColor Green;
 Write-Host -Object "[Pipeline] -- ArtifactPath: $ArtifactPath" -ForegroundColor Green;
 Write-Host -Object "[Pipeline] -- BuildNumber: $($Env:BUILD_BUILDNUMBER)" -ForegroundColor Green;
 Write-Host -Object "[Pipeline] -- SourceBranch: $($Env:BUILD_SOURCEBRANCH)" -ForegroundColor Green;
 Write-Host -Object "[Pipeline] -- SourceBranchName: $($Env:BUILD_SOURCEBRANCHNAME)" -ForegroundColor Green;
+Write-Host -Object "[Pipeline] -- Culture: $((Get-Culture).Name), $((Get-Culture).Parent)" -ForegroundColor Green;
 
 if ($Env:SYSTEM_DEBUG -eq 'true') {
     $VerbosePreference = 'Continue';
@@ -51,7 +53,7 @@ if ($version -like '*-*') {
 Write-Host -Object "[Pipeline] -- Using version: $version" -ForegroundColor Green;
 Write-Host -Object "[Pipeline] -- Using versionSuffix: $versionSuffix" -ForegroundColor Green;
 
-if ($Env:coverage -eq 'true') {
+if ($Env:COVERAGE -eq 'true') {
     $CodeCoverage = $True;
 }
 
@@ -144,10 +146,10 @@ task VersionModule ModuleDependencies, {
     $manifest = Test-ModuleManifest -Path $manifestPath;
     $requiredModules = $manifest.RequiredModules | ForEach-Object -Process {
         if ($_.Name -eq 'PSRule' -and $Configuration -eq 'Release') {
-            @{ ModuleName = 'PSRule'; ModuleVersion = '0.13.0' }
+            @{ ModuleName = 'PSRule'; ModuleVersion = '0.16.0' }
         }
         elseif ($_.Name -eq 'PSRule.Rules.Azure' -and $Configuration -eq 'Release') {
-            @{ ModuleName = 'PSRule.Rules.Azure'; ModuleVersion = '0.7.0' }
+            @{ ModuleName = 'PSRule.Rules.Azure'; ModuleVersion = '0.10.1' }
         }
         else {
             @{ ModuleName = $_.Name; ModuleVersion = $_.Version }
@@ -197,11 +199,11 @@ task PSScriptAnalyzer NuGet, {
 
 # Synopsis: Install PSRule
 task PSRule NuGet, {
-    if ($Null -eq (Get-InstalledModule -Name PSRule -MinimumVersion 0.13.0 -ErrorAction Ignore)) {
-        Install-Module -Name PSRule -Repository PSGallery -MinimumVersion 0.13.0 -Scope CurrentUser -Force;
+    if ($Null -eq (Get-InstalledModule -Name PSRule -MinimumVersion '0.16.0' -AllowPrerelease -ErrorAction Ignore)) {
+        Install-Module -Name PSRule -Repository PSGallery -MinimumVersion '0.16.0' -AllowPrerelease -Scope CurrentUser -Force;
     }
-    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.Azure -MinimumVersion 0.7.0 -ErrorAction Ignore)) {
-        Install-Module -Name PSRule.Rules.Azure -Repository PSGallery -MinimumVersion 0.7.0 -Scope CurrentUser -Force;
+    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.Azure -MinimumVersion '0.10.1' -ErrorAction Ignore)) {
+        Install-Module -Name PSRule.Rules.Azure -Repository PSGallery -MinimumVersion '0.10.1' -Scope CurrentUser -Force;
     }
     Import-Module -Name PSRule.Rules.Azure -Verbose:$False;
 }
@@ -219,7 +221,6 @@ task platyPS {
     if ($Null -eq (Get-InstalledModule -Name PlatyPS -MinimumVersion 0.14.0 -ErrorAction Ignore)) {
         Install-Module -Name PlatyPS -Scope CurrentUser -MinimumVersion 0.14.0 -Force;
     }
-    Import-Module -Name PlatyPS -Verbose:$False;
 }
 
 # Synopsis: Install module dependencies
@@ -262,7 +263,8 @@ task Rules PSRule, {
     $assertParams = @{
         Path = './.ps-rule/'
         Style = $AssertStyle
-        OutputFormat = 'NUnit3';
+        OutputFormat = 'NUnit3'
+        ErrorAction = 'Stop'
     }
     Import-Module (Join-Path -Path $PWD -ChildPath out/modules/PSRule.Rules.CAF) -Force;
     Get-RepoRuleData -Path $PWD |
