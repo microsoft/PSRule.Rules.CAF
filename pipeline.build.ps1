@@ -149,7 +149,7 @@ task VersionModule ModuleDependencies, {
             @{ ModuleName = 'PSRule'; ModuleVersion = '0.16.0' }
         }
         elseif ($_.Name -eq 'PSRule.Rules.Azure' -and $Configuration -eq 'Release') {
-            @{ ModuleName = 'PSRule.Rules.Azure'; ModuleVersion = '0.10.1' }
+            @{ ModuleName = 'PSRule.Rules.Azure'; ModuleVersion = '0.11.0' }
         }
         else {
             @{ ModuleName = $_.Name; ModuleVersion = $_.Version }
@@ -202,8 +202,8 @@ task PSRule NuGet, {
     if ($Null -eq (Get-InstalledModule -Name PSRule -MinimumVersion '0.16.0' -AllowPrerelease -ErrorAction Ignore)) {
         Install-Module -Name PSRule -Repository PSGallery -MinimumVersion '0.16.0' -AllowPrerelease -Scope CurrentUser -Force;
     }
-    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.Azure -MinimumVersion '0.10.1' -ErrorAction Ignore)) {
-        Install-Module -Name PSRule.Rules.Azure -Repository PSGallery -MinimumVersion '0.10.1' -Scope CurrentUser -Force;
+    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.Azure -MinimumVersion '0.11.0' -ErrorAction Ignore)) {
+        Install-Module -Name PSRule.Rules.Azure -Repository PSGallery -MinimumVersion '0.11.0' -Scope CurrentUser -Force;
     }
     Import-Module -Name PSRule.Rules.Azure -Verbose:$False;
 }
