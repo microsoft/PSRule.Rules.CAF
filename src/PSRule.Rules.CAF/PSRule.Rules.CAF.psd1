@@ -2,7 +2,7 @@
 # Licensed under the MIT License.
 
 #
-# PSRule module
+# PSRule.Rules.CAF
 #
 
 @{
@@ -53,6 +53,7 @@ DotNetFrameworkVersion = '4.7.2'
 
 # Modules that must be imported into the global environment prior to importing this module
 RequiredModules = @(
+    @{ ModuleName = 'PSRule'; ModuleVersion = '0.0.1' }
     @{ ModuleName = 'PSRule.Rules.Azure'; ModuleVersion = '0.0.1' }
 )
 
