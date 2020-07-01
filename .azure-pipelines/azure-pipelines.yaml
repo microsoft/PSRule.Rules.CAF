@@ -2,7 +2,7 @@
 # CI pipeline for PSRule.Rules.CAF
 
 variables:
-  version: '0.11.0'
+  version: '0.1.0'
   buildConfiguration: 'Release'
   disable.coverage.autogenerate: 'true'
   imageName: 'ubuntu-18.04'
