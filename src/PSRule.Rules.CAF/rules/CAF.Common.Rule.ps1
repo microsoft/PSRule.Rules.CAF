@@ -2,22 +2,29 @@
 # Licensed under the MIT License.
 
 # Determines if the object supports tags
-function global:SupportsTags {
+function global:CAF_SupportsTags {
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param ()
     process {
         if (
             ($PSRule.TargetType -eq 'Microsoft.Subscription') -or
+            ($PSRule.TargetType -notlike 'Microsoft.*/*') -or
+            ($PSRule.TargetType -like 'Microsoft.Addons/*') -or
+            ($PSRule.TargetType -like 'Microsoft.Advisor/*') -or
             ($PSRule.TargetType -like 'Microsoft.Authorization/*') -or
             ($PSRule.TargetType -like 'Microsoft.Billing/*') -or
+            ($PSRule.TargetType -like 'Microsoft.Blueprint/*') -or
+            ($PSRule.TargetType -like 'Microsoft.Capacity/*') -or
             ($PSRule.TargetType -like 'Microsoft.Classic*') -or
             ($PSRule.TargetType -like 'Microsoft.Consumption/*') -or
             ($PSRule.TargetType -like 'Microsoft.Gallery/*') -or
             ($PSRule.TargetType -like 'Microsoft.Security/*') -or
             ($PSRule.TargetType -like 'microsoft.support/*') -or
+            ($PSRule.TargetType -like 'microsoft.insights/diagnosticSettings') -or
             ($PSRule.TargetType -like 'Microsoft.WorkloadMonitor/*') -or
             ($PSRule.TargetType -like '*/providers/roleAssignments') -or
+            ($PSRule.TargetType -like '*/providers/diagnosticSettings') -or
 
             # Exclude sub-resources by default
             ($PSRule.TargetType -like 'Microsoft.*/*/*' -and !(
@@ -35,6 +42,11 @@ function global:SupportsTags {
                 $PSRule.TargetType -eq 'Microsoft.Resources/deployments' -or
                 $PSRule.TargetType -eq 'Microsoft.Resources/deploymentScripts' -or
                 $PSRule.TargetType -eq 'Microsoft.Resources/resourceGroups'
+            )) -or
+
+            # Some exceptions to resources (https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/tag-support#microsoftcostmanagement)
+            ($PSRule.TargetType -like 'Microsoft.CostManagement/*' -and !(
+                $PSRule.TargetType -eq 'Microsoft.CostManagement/Connectors'
             ))
         ) {
             return $False;
@@ -44,7 +56,7 @@ function global:SupportsTags {
 }
 
 # Determines if the object is a Resource Group
-function global:IsResourceGroup {
+function global:CAF_IsResourceGroup {
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param ()
@@ -54,7 +66,7 @@ function global:IsResourceGroup {
 }
 
 # Determines if the object is a managed resource group created by Azure
-function global:IsManagedRG {
+function global:CAF_IsManagedRG {
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param ()
@@ -75,7 +87,7 @@ function global:IsManagedRG {
 }
 
 # Determines if the object is a managed load balancer created by Azure
-function global:IsManagedLB {
+function global:CAF_IsManagedLB {
     [CmdletBinding()]
     [OutputType([System.Boolean])]
     param ()

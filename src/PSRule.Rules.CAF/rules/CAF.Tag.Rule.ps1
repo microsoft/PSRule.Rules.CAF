@@ -6,7 +6,7 @@
 # https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/naming-and-tagging
 
 # Synopsis: Tag resources and resource groups with mandatory tags
-Rule 'CAF.Tag.Required' -If { (SupportsTags) } {
+Rule 'CAF.Tag.Required' -If { (CAF_SupportsTags) } {
     # Use resource or resource group mandatory tags
     $required = $Configuration.GetStringValues('CAF_ResourceMandatoryTags')
     if ($PSRule.TargetType -eq 'Microsoft.Resources/resourceGroups') {
@@ -25,6 +25,6 @@ Rule 'CAF.Tag.Required' -If { (SupportsTags) } {
 }
 
 # Synopsis: Use standard environment tag values
-Rule 'CAF.Tag.Environment' -If { (SupportsTags) -and (Exists "Tags.$($Configuration.CAF_EnvironmentTag)") } {
+Rule 'CAF.Tag.Environment' -If { (CAF_SupportsTags) -and (Exists "Tags.$($Configuration.CAF_EnvironmentTag)") } {
     Within "Tags.$($Configuration.CAF_EnvironmentTag)" $Configuration.CAF_Environments
 }

@@ -7,7 +7,7 @@
 # https://docs.microsoft.com/en-us/azure/architecture/best-practices/resource-naming
 
 # Synopsis: Use standard resource groups names
-Rule 'CAF.Name.RG' -Type 'Microsoft.Resources/resourceGroups' -If { !(IsManagedRG) } {
+Rule 'CAF.Name.RG' -Type 'Microsoft.Resources/resourceGroups' -If { !(CAF_IsManagedRG) } {
     $Assert.StartsWith($TargetObject, 'Name', $Configuration.CAF_ResourceGroupPrefix)
 
     # Name requirements
@@ -124,7 +124,7 @@ Rule 'CAF.Name.PublicIP' -Type 'Microsoft.Network/publicIPAddresses' {
 }
 
 # Synopsis: Use standard load balancer names
-Rule 'CAF.Name.LoadBalancer' -Type 'Microsoft.Network/loadBalancers' -If { !(IsManagedLB) } {
+Rule 'CAF.Name.LoadBalancer' -Type 'Microsoft.Network/loadBalancers' -If { !(CAF_IsManagedLB) } {
     $Assert.StartsWith($TargetObject, 'Name', $Configuration.CAF_LoadBalancerPrefix)
 
     # Name requirements
