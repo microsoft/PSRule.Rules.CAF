@@ -71,8 +71,8 @@ The `PSRule.Rules.Azure` module is included as a dependency of `PSRule.Rules.CAF
 
 For details of `PSRule.Rules.Azure` commands see:
 
-- [Export-AzRuleData](https://github.com/BernieWhite/PSRule.Rules.Azure/blob/master/docs/commands/PSRule.Rules.Azure/en-US/Export-AzRuleData.md) - Export resource configuration data from Azure subscriptions.
-- [Export-AzTemplateRuleData](https://github.com/BernieWhite/PSRule.Rules.Azure/blob/master/docs/commands/PSRule.Rules.Azure/en-US/Export-AzTemplateRuleData.md) - Export resource configuration data from Azure templates.
+- [Export-AzRuleData](https://github.com/Microsoft/PSRule.Rules.Azure/blob/main/docs/commands/PSRule.Rules.Azure/en-US/Export-AzRuleData.md) - Export resource configuration data from Azure subscriptions.
+- [Export-AzTemplateRuleData](https://github.com/Microsoft/PSRule.Rules.Azure/blob/main/docs/commands/PSRule.Rules.Azure/en-US/Export-AzTemplateRuleData.md) - Export resource configuration data from Azure templates.
 
 ## Changes and versioning
 
@@ -104,6 +104,6 @@ or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any addi
 This project is [licensed under the MIT License](LICENSE).
 
 [install]: docs/scenarios/install-instructions.md
-[ci-badge]: https://dev.azure.com/bewhite/PSRule.Rules.CAF/_apis/build/status/PSRule.Rules.CAF-CI?branchName=master
+[ci-badge]: https://dev.azure.com/bewhite/PSRule.Rules.CAF/_apis/build/status/PSRule.Rules.CAF-CI?branchName=main
 [module]: https://www.powershellgallery.com/packages/PSRule.Rules.CAF
 [engine]: https://github.com/Microsoft/PSRule
