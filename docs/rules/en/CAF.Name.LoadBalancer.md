@@ -1,6 +1,6 @@
 ---
 category: Naming
-online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/master/docs/rules/en/CAF.Name.LoadBalancer.md
+online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/main/docs/rules/en/CAF.Name.LoadBalancer.md
 ---
 
 # Use standard load balancer names
