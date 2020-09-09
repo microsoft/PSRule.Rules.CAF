@@ -1,5 +1,6 @@
 ---
-category: Naming
+pillar: Operational Excellence
+category: Tagging and resource naming
 online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/main/docs/rules/en/CAF.Name.NSG.md
 ---
 
@@ -39,3 +40,5 @@ To configure this rule:
 ## LINKS
 
 - [Recommended naming and tagging conventions](https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/naming-and-tagging)
+- [Azure Well-Architected Framework](https://docs.microsoft.com/en-gb/azure/architecture/framework/devops/app-design#tagging-and-resource-naming)
+- [Naming rules and restrictions for Azure resources](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/resource-name-rules)

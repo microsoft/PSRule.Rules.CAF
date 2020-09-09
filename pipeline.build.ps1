@@ -86,44 +86,6 @@ function CopyModuleFiles {
     }
 }
 
-function Get-RepoRuleData {
-    [CmdletBinding()]
-    param (
-        [Parameter(Position = 0, Mandatory = $False)]
-        [String]$Path = $PWD
-    )
-    process {
-        GetPathInfo -Path $Path -Verbose:$VerbosePreference;
-    }
-}
-
-function GetPathInfo {
-    [CmdletBinding()]
-    param (
-        [Parameter(Mandatory = $True)]
-        [String]$Path
-    )
-    begin {
-        $items = New-Object -TypeName System.Collections.ArrayList;
-    }
-    process {
-        $Null = $items.Add((Get-Item -Path $Path));
-        $files = @(Get-ChildItem -Path $Path -File -Recurse -Include *.ps1,*.psm1,*.psd1,*.cs | Where-Object {
-            !($_.FullName -like "*.Designer.cs") -and
-            !($_.FullName -like "*/bin/*") -and
-            !($_.FullName -like "*/obj/*") -and
-            !($_.FullName -like "*\obj\*") -and
-            !($_.FullName -like "*\bin\*") -and
-            !($_.FullName -like "*\out\*") -and
-            !($_.FullName -like "*/out/*")
-        });
-        $Null = $items.AddRange($files);
-    }
-    end {
-        $items;
-    }
-}
-
 task VersionModule ModuleDependencies, {
     $modulePath = Join-Path -Path $ArtifactPath -ChildPath PSRule.Rules.CAF;
     $manifestPath = Join-Path -Path $modulePath -ChildPath PSRule.Rules.CAF.psd1;
@@ -146,10 +108,10 @@ task VersionModule ModuleDependencies, {
     $manifest = Test-ModuleManifest -Path $manifestPath;
     $requiredModules = $manifest.RequiredModules | ForEach-Object -Process {
         if ($_.Name -eq 'PSRule' -and $Configuration -eq 'Release') {
-            @{ ModuleName = 'PSRule'; ModuleVersion = '0.16.0' }
+            @{ ModuleName = 'PSRule'; ModuleVersion = '0.20.0' }
         }
         elseif ($_.Name -eq 'PSRule.Rules.Azure' -and $Configuration -eq 'Release') {
-            @{ ModuleName = 'PSRule.Rules.Azure'; ModuleVersion = '0.11.0' }
+            @{ ModuleName = 'PSRule.Rules.Azure'; ModuleVersion = '0.15.0' }
         }
         else {
             @{ ModuleName = $_.Name; ModuleVersion = $_.Version }
@@ -163,7 +125,7 @@ task VersionModule ModuleDependencies, {
 
 # Synopsis: Publish to PowerShell Gallery
 task ReleaseModule VersionModule, {
-    $modulePath = (Join-Path -Path $ArtifactPath -ChildPath PSRule.Rules.CAF);
+    $modulePath = (Join-Path -Path $ArtifactPath -ChildPath 'PSRule.Rules.CAF');
     Write-Verbose -Message "[ReleaseModule] -- Checking module path: $modulePath";
 
     if (!(Test-Path -Path $modulePath)) {
@@ -199,11 +161,11 @@ task PSScriptAnalyzer NuGet, {
 
 # Synopsis: Install PSRule
 task PSRule NuGet, {
-    if ($Null -eq (Get-InstalledModule -Name PSRule -MinimumVersion '0.16.0' -AllowPrerelease -ErrorAction Ignore)) {
-        Install-Module -Name PSRule -Repository PSGallery -MinimumVersion '0.16.0' -AllowPrerelease -Scope CurrentUser -Force;
+    if ($Null -eq (Get-InstalledModule -Name PSRule -MinimumVersion '0.20.0' -AllowPrerelease -ErrorAction Ignore)) {
+        Install-Module -Name PSRule -Repository PSGallery -MinimumVersion '0.20.0' -AllowPrerelease -Scope CurrentUser -Force;
     }
-    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.Azure -MinimumVersion '0.11.0' -ErrorAction Ignore)) {
-        Install-Module -Name PSRule.Rules.Azure -Repository PSGallery -MinimumVersion '0.11.0' -Scope CurrentUser -Force;
+    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.Azure -MinimumVersion '0.15.0' -ErrorAction Ignore)) {
+        Install-Module -Name PSRule.Rules.Azure -Repository PSGallery -MinimumVersion '0.15.0' -Scope CurrentUser -Force;
     }
     Import-Module -Name PSRule.Rules.Azure -Verbose:$False;
 }
@@ -267,8 +229,7 @@ task Rules PSRule, {
         ErrorAction = 'Stop'
     }
     Import-Module (Join-Path -Path $PWD -ChildPath out/modules/PSRule.Rules.CAF) -Force;
-    Get-RepoRuleData -Path $PWD |
-        Assert-PSRule @assertParams -OutputPath reports/ps-rule-file.xml;
+    Assert-PSRule @assertParams -InputPath $PWD -Format File -OutputPath reports/ps-rule-file.xml;
 
     $rules = Get-PSRule -Module PSRule.Rules.CAF;
     $rules | Assert-PSRule @assertParams -OutputPath reports/ps-rule-file2.xml;
