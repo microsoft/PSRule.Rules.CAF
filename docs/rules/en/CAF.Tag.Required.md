@@ -1,5 +1,6 @@
 ---
-category: Tagging
+pillar: Operational Excellence
+category: Tagging and resource naming
 online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/main/docs/rules/en/CAF.Tag.Required.md
 ---
 
