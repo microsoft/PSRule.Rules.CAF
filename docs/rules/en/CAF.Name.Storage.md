@@ -1,6 +1,6 @@
 ---
 pillar: Operational Excellence
-category: Tagging and resource naming
+category: Resource naming
 online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/main/docs/rules/en/CAF.Name.Storage.md
 ---
 
@@ -8,14 +8,14 @@ online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/main/docs/rul
 
 ## SYNOPSIS
 
-Storage account names should use a standard prefix and meet naming requirements.
+Storage account names should use a standard prefix.
 
 ## DESCRIPTION
 
 An effective naming convention allows operators to quickly identify resource type, associated workload,
 deployment environment and Azure region.
 
-For storage accounts, the Cloud Adoption Framework recommends using the `stor`, `stvm` and `dls` prefix.
+For storage accounts, the Cloud Adoption Framework recommends using the `st`, `stvm`, and `dls` prefix.
 Use of different prefixes depends on the intended usage of the storage account.
 
 Requirements for storage account names:

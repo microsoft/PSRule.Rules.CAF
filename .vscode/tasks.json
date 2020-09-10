@@ -4,7 +4,8 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "test",
+            "label": "Test",
+            "detail": "Build and run unit tests.",
             "type": "shell",
             "command": "Invoke-Build Test -AssertStyle Client",
             "group": {
@@ -69,6 +70,13 @@
             "label": "scaffold-docs",
             "type": "shell",
             "command": "Invoke-Build ScaffoldHelp",
+            "problemMatcher": []
+        },
+        {
+            "label": "Rule docs",
+            "detail": "Generate rule table of contents.",
+            "type": "shell",
+            "command": "Invoke-Build BuildRuleDocs",
             "problemMatcher": []
         }
     ]

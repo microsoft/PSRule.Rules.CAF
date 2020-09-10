@@ -54,14 +54,14 @@
         "SubscriptionId": "00000000-0000-0000-0000-000000000000"
     },
     {
-        "ResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworkGateways/vnet-gw-B",
-        "Id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworkGateways/vnet-gw-B",
+        "ResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworkGateways/vgw-B",
+        "Id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworkGateways/vgw-B",
         "Identity": null,
         "Kind": null,
         "Location": "region",
         "ManagedBy": null,
-        "ResourceName": "vnet-gw-B",
-        "Name": "vnet-gw-B",
+        "ResourceName": "vgw-B",
+        "Name": "vgw-B",
         "ExtensionResourceName": null,
         "ParentResource": null,
         "Plan": null,
@@ -70,13 +70,13 @@
             "ipConfigurations": [
                 {
                     "name": "default",
-                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworkGateways/vnet-gw-B/ipConfigurations/default",
+                    "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworkGateways/vgw-B/ipConfigurations/default",
                     "type": "Microsoft.Network/virtualNetworkGateways/ipConfigurations",
                     "properties": {
                         "provisioningState": "Succeeded",
                         "privateIPAllocationMethod": "Dynamic",
                         "publicIPAddress": {
-                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/publicIPAddresses/vnet-gw-B-pip"
+                            "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/publicIPAddresses/vgw-B-pip"
                         },
                         "subnet": {
                             "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworks/test-rg/subnets/GatewaySubnet"
@@ -185,7 +185,7 @@
             "provisioningState": "Succeeded",
             "resourceGuid": "00000000-0000-0000-0000-000000000000",
             "virtualNetworkGateway1": {
-                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworkGateways/vnet-gw-B"
+                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworkGateways/vgw-B"
             },
             "localNetworkGateway2": {
                 "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/localNetworkGateways/lng-A"
@@ -234,7 +234,7 @@
             "provisioningState": "Succeeded",
             "resourceGuid": "00000000-0000-0000-0000-000000000000",
             "virtualNetworkGateway1": {
-                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworkGateways/vnet-gw-B"
+                "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/virtualNetworkGateways/vgw-B"
             },
             "localNetworkGateway2": {
                 "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/localNetworkGateways/lng-A"

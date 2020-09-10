@@ -1,6 +1,6 @@
 ---
 pillar: Operational Excellence
-category: Tagging and resource naming
+category: Resource naming
 online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/main/docs/rules/en/CAF.Name.LoadBalancer.md
 ---
 
@@ -8,14 +8,15 @@ online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/main/docs/rul
 
 ## SYNOPSIS
 
-Load balancer names should use a standard prefix and meet naming requirements.
+Load balancer names should use a standard prefix.
 
 ## DESCRIPTION
 
 An effective naming convention allows operators to quickly identify resource type, associated workload,
 deployment environment and Azure region.
 
-For load balancers, the Cloud Adoption Framework recommends using the `lb-` prefix.
+For load balancers, the Cloud Adoption Framework recommends using the `lbi-`, and `lbe-` prefix.
+Use of different prefixes depends on the intended usage of the load balancer.
 
 Requirements for load balancers names:
 

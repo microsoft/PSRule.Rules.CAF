@@ -124,9 +124,9 @@
         ]
     },
     {
-        "Name": "vmB",
-        "ResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Compute/virtualMachines/vmB",
-        "ResourceName": "vmB",
+        "Name": "bvm",
+        "ResourceId": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Compute/virtualMachines/bvm",
+        "ResourceName": "bvm",
         "ResourceType": "Microsoft.Compute/virtualMachines",
         "ResourceGroupName": "test-rg",
         "Location": "region",
@@ -144,19 +144,19 @@
                 },
                 "osDisk": {
                     "osType": "Windows",
-                    "name": "vmB_OsDisk_1_0000000000000000000000000000000",
+                    "name": "bvm_OsDisk_1_0000000000000000000000000000000",
                     "createOption": "FromImage",
                     "caching": "ReadWrite",
                     "managedDisk": {
                         "storageAccountType": "StandardSSD_LRS",
-                        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Compute/disks/vmB_OsDisk_1_0000000000000000000000000000000"
+                        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Compute/disks/bvm_OsDisk_1_0000000000000000000000000000000"
                     },
                     "diskSizeGB": 127
                 },
                 "dataDisks": [
                     {
                         "lun": 0,
-                        "name": "vmB_disk2_0000000000000000000000000000000",
+                        "name": "bvm_disk2_0000000000000000000000000000000",
                         "createOption": "Empty",
                         "caching": "ReadOnly",
                         "diskSizeGB": 1023
@@ -164,7 +164,7 @@
                 ]
             },
             "osProfile": {
-                "computerName": "vmB",
+                "computerName": "bvm",
                 "adminUsername": "vm-admin",
                 "windowsConfiguration": {
                     "provisionVMAgent": false,
@@ -176,7 +176,7 @@
             "networkProfile": {
                 "networkInterfaces": [
                     {
-                        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkInterfaces/vmB-nic"
+                        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Network/networkInterfaces/bvm-nic"
                     }
                 ]
             },
@@ -229,7 +229,7 @@
                     "enableIPForwarding": false,
                     "primary": true,
                     "virtualMachine": {
-                        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Compute/virtualMachines/vmB"
+                        "id": "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/test-rg/providers/Microsoft.Compute/virtualMachines/bvm"
                     },
                     "hostedWorkloads": [],
                     "tapConfigurations": []
