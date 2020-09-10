@@ -56,14 +56,14 @@ Describe 'CAF.Name' -Tag 'name' {
             # Fail
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
             $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 2;
-            $ruleResult.TargetName | Should -BeIn 'vnetB', 'vnet-C-';
+            $ruleResult.Length | Should -Be 1;
+            $ruleResult.TargetName | Should -BeIn 'vnetB';
 
             # Pass
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
             $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 2;
-            $ruleResult.TargetName | Should -BeIn 'vnet-A', 'vnet-D';
+            $ruleResult.Length | Should -Be 3;
+            $ruleResult.TargetName | Should -BeIn 'vnet-A', 'vnet-D', 'vnet-C';
         }
 
         It 'CAF.Name.Subnet' {
@@ -79,7 +79,7 @@ Describe 'CAF.Name' -Tag 'name' {
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
             $ruleResult | Should -Not -BeNullOrEmpty;
             $ruleResult.Length | Should -Be 2;
-            $ruleResult.TargetName | Should -BeIn 'vnet-A', 'vnet-C-';
+            $ruleResult.TargetName | Should -BeIn 'vnet-A', 'vnet-C';
         }
 
         It 'CAF.Name.VNG' {
@@ -95,7 +95,7 @@ Describe 'CAF.Name' -Tag 'name' {
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
             $ruleResult | Should -Not -BeNullOrEmpty;
             $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'vnet-gw-B';
+            $ruleResult.TargetName | Should -Be 'vgw-B';
         }
 
         It 'CAF.Name.Connection' {
@@ -153,7 +153,7 @@ Describe 'CAF.Name' -Tag 'name' {
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
             $ruleResult | Should -Not -BeNullOrEmpty;
             $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'vmB';
+            $ruleResult.TargetName | Should -Be 'bvm';
 
             # Pass
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
@@ -207,7 +207,7 @@ Describe 'CAF.Name' -Tag 'name' {
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
             $ruleResult | Should -Not -BeNullOrEmpty;
             $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'lb-A';
+            $ruleResult.TargetName | Should -Be 'lbe-A';
         }
     }
 }

@@ -26,5 +26,5 @@ Rule 'CAF.Tag.Required' -If { (CAF_SupportsTags) } {
 
 # Synopsis: Use standard environment tag values
 Rule 'CAF.Tag.Environment' -If { (CAF_SupportsTags) -and (Exists "Tags.$($Configuration.CAF_EnvironmentTag)") } {
-    Within "Tags.$($Configuration.CAF_EnvironmentTag)" $Configuration.CAF_Environments
+    $Assert.In($TargetObject, "Tags.$($Configuration.CAF_EnvironmentTag)", $Configuration.CAF_Environments)
 }

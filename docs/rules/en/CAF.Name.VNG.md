@@ -1,6 +1,6 @@
 ---
 pillar: Operational Excellence
-category: Tagging and resource naming
+category: Resource naming
 online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/main/docs/rules/en/CAF.Name.VNG.md
 ---
 
@@ -8,14 +8,14 @@ online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/main/docs/rul
 
 ## SYNOPSIS
 
-Virtual network gateway names should use a standard prefix and meet naming requirements.
+Virtual network gateway names should use a standard prefix.
 
 ## DESCRIPTION
 
 An effective naming convention allows operators to quickly identify resource type, associated workload,
 deployment environment and Azure region.
 
-For virtual network gateways, the Cloud Adoption Framework recommends using the `vnet-gw-` prefix.
+For virtual network gateways, the Cloud Adoption Framework recommends using the `vgw-` prefix.
 
 Requirements for virtual network gateway names:
 

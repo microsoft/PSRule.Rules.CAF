@@ -1,6 +1,6 @@
 ---
 pillar: Operational Excellence
-category: Tagging and resource naming
+category: Resource naming
 online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/main/docs/rules/en/CAF.Name.Route.md
 ---
 
@@ -8,7 +8,7 @@ online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/main/docs/rul
 
 ## SYNOPSIS
 
-Route table names should use a standard prefix and meet naming requirements.
+Route table names should use a standard prefix.
 
 ## DESCRIPTION
 

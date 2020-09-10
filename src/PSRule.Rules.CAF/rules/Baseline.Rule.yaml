@@ -5,61 +5,80 @@ kind: Baseline
 metadata:
   name: CAF.Strict
 spec:
-  binding:
-    targetType:
-    - 'ResourceType'
-    - 'Type'
-    targetName:
-    - 'ResourceName'
-    - 'Name'
-    field:
-      resourceId: [ 'ResourceId' ]
-      subscriptionId: [ 'SubscriptionId' ]
-      resourceGroupName: [ 'ResourceGroupName' ]
 
   configuration:
-    # Name prefixes
+    # General
     CAF_ResourceGroupPrefix: [ 'rg-' ]
+    CAF_PolicyDefinitionPrefix: [ 'policy-' ]
+    CAF_APIManagementPrefix: [ 'apim-' ]
+
+    # Networking
     CAF_VirtualNetworkPrefix: [ 'vnet-' ]
-    CAF_VirtualNetworkGatewayPrefix: [ 'vnet-gw-' ]
-    CAF_GatewayConnectionPrefix: [ 'cn-' ]
     CAF_SubnetPrefix: [ 'snet-' ]
-    CAF_NetworkSecurityGroupPrefix: [ 'nsg-' ]
-    CAF_RouteTablePrefix: [ 'route-' ]
-    CAF_VirtualMachinePrefix: [ 'vm-' ]
-    CAF_StoragePrefix: [ 'stor', 'stvm', 'dls' ]
-    CAF_PublicIPPrefix: [ 'pip-' ]
-    CAF_LoadBalancerPrefix: [ 'lb-' ]
     CAF_NetworkInterfacePrefix: [ 'nic-' ]
-    CAF_KeyVaultPrefix: [ 'kv-' ]
+    CAF_PublicIPPrefix: [ 'pip-' ]
+    CAF_LoadBalancerPrefix: [ 'lbi-', 'lbe-' ]
+    CAF_NetworkSecurityGroupPrefix: [ 'nsg-' ]
+    CAF_ApplicationSecurityGroupPrefix: [ 'asg-' ]
+    CAF_LocalNetworkGatewayPrefix: [ 'lgw-' ]
+    CAF_VirtualNetworkGatewayPrefix: [ 'vgw-' ]
+    CAF_GatewayConnectionPrefix: [ 'cn-' ]
+    CAF_ApplicationGatewayPrefix: [ 'agw-' ]
+    CAF_RouteTablePrefix: [ 'route-' ]
+    CAF_TrafficManagerProfilePrefix: [ 'traf-' ]
+
+    # Compute and Web
+    CAF_VirtualMachinePrefix: [ 'vm' ]
+    CAF_VirtualMachineScaleSetPrefix: [ 'vmss-' ]
+    CAF_AvailabilitySetPrefix: [ 'avail-' ]
+    CAF_ContainerInstancePrefix: [ 'aci-' ]
     CAF_AKSClusterPrefix: [ 'aks-' ]
-    CAF_ServiceBusPrefix: [ 'sb-' ]
-    CAF_ServiceBusQueuePrefix: [ 'sbq-' ]
-    CAF_AppServiceAppPrefix: [ 'azapp-' ]
-    CAF_FunctionAppPrefix: [ 'azfun-' ]
-    CAF_CloudServicePrefix: [ 'azcs-' ]
+    CAF_AppServicePlanPrefix: [ 'plan-' ]
+    CAF_WebAppPrefix: [ 'app-' ]
+    CAF_FunctionAppPrefix: [ 'func-' ]
+    CAF_CloudServicePrefix: [ 'cld-' ]
+    CAF_NotificationHubPrefix: [ 'ntf-' ]
+    CAF_NotificationHubNamespacePrefix: [ 'ntfns-' ]
+
+    # Databases
+    CAF_SQLDatabaseServerPrefix: [ 'sql-' ]
     CAF_SQLDatabasePrefix: [ 'sqldb-' ]
-    CAF_CosmosDbPrefix: [ 'cosdb-' ]
+    CAF_CosmosDbPrefix: [ 'cosmos-' ]
     CAF_RedisCachePrefix: [ 'redis-' ]
     CAF_MySQLDatabasePrefix: [ 'mysql-' ]
+    CAF_PostgreSQLDatabasePrefix: [ 'psql-' ]
     CAF_SQLDataWarehousePrefix: [ 'sqldw-' ]
+    CAF_SynapseAnalyticsPrefix: [ 'syn-' ]
     CAF_SQLStretchDbPrefix: [ 'sqlstrdb-' ]
+
+    # Storage
+    CAF_StoragePrefix: [ 'st', 'stvm', 'dls' ]
     CAF_StorSimplePrefix: [ 'ssimp' ]
+
+    # AI and Machine Learning
     CAF_SearchPrefix: [ 'srch-' ]
-    CAF_CognitiveServicesPrefix: [ 'cs-' ]
-    CAF_MachineLearningWorkspacePrefix: [ 'aml-' ]
-    CAF_DataLakeAnalyticsPrefix: [ 'dla' ]
-    CAF_HDInsightsSparkPrefix: [ 'hdis-' ]
-    CAF_HDInsightsHadoopPrefix: [ 'hdihd-' ]
-    CAF_HDInsightsRServerPrefix: [ 'hdir-' ]
-    CAF_HDInsightsHBasePrefix: [ 'hdihb-' ]
-    CAF_PowerBIEmbeddedPrefix: [ 'pbiemb' ]
+    CAF_CognitiveServicesPrefix: [ 'cog-' ]
+    CAF_MachineLearningWorkspacePrefix: [ 'mlw-' ]
+
+    # Analytics and IoT
     CAF_StreamAnalyticsPrefix: [ 'asa-' ]
-    CAF_DataFactoryPrefix: [ 'df-' ]
+    CAF_DataFactoryPrefix: [ 'adf-' ]
+    CAF_DataLakeStorePrefix: [ 'dla' ]
     CAF_EventHubsPrefix: [ 'evh-' ]
-    CAF_IoTHubPrefix: [ 'aih-' ]
-    CAF_NotificationHubPrefix: [ 'anh-' ]
-    CAF_NotificationHubNSPrefix: [ 'anhns-' ]
+    CAF_HDInsightsHadoopPrefix: [ 'hadoop-' ]
+    CAF_HDInsightsHBasePrefix: [ 'hbase-' ]
+    CAF_HDInsightsSparkPrefix: [ 'spark-' ]
+    CAF_IoTHubPrefix: [ 'iot-' ]
+    CAF_PowerBIEmbeddedPrefix: [ 'pbi-' ]
+
+    # Integration
+    CAF_LogicAppsPrefix: [ 'logic-' ]
+    CAF_ServiceBusPrefix: [ 'sb-' ]
+    CAF_ServiceBusQueuePrefix: [ 'sbq-' ]
+    CAF_ServiceBusTopicPrefix: [ 'sbt-' ]
+
+    # Management and governance
+    CAF_KeyVaultPrefix: [ 'kv-' ]
 
     # Required tags
     CAF_ResourceMandatoryTags: [ ]

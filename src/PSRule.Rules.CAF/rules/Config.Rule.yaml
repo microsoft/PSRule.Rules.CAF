@@ -1,0 +1,18 @@
+
+---
+# Synopsis: 
+kind: ModuleConfig
+metadata:
+  name: PSRule.Rules.CAF
+spec:
+  binding:
+    targetType:
+    - 'ResourceType'
+    - 'Type'
+    targetName:
+    - 'ResourceName'
+    - 'Name'
+    field:
+      resourceId: [ 'ResourceId' ]
+      subscriptionId: [ 'SubscriptionId' ]
+      resourceGroupName: [ 'ResourceGroupName' ]
