@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v0.1.0-B2009009 (pre-release)
+
+What's changed since pre-release v0.1.0-B2008005:
+
 - General improvements:
   - Updated rule content to align with Microsoft Azure Well-Architected Framework pillars. [#23](https://github.com/microsoft/PSRule.Rules.CAF/issues/23)
   - Updated naming rules to check for recommended naming prefixes. [#29](https://github.com/microsoft/PSRule.Rules.CAF/issues/29)
