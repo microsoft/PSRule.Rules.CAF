@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## v0.1.0-B2012004 (pre-release)
+
+What's changed since pre-release v0.1.0-B2009009:
+
 - General improvements:
   - Resource name rules are case-sensitive by default. [#36](https://github.com/microsoft/PSRule.Rules.CAF/issues/36)
   - Resource and resource group tagging rules are case-sensitive by default. [#35](https://github.com/microsoft/PSRule.Rules.CAF/issues/35)
