@@ -7,14 +7,21 @@ metadata:
 spec:
 
   configuration:
+
+    # Naming
+    CAF_UseLowerNames: true
+
     # General
+    CAF_ManagementGroupPrefix: [ 'mg-' ]
     CAF_ResourceGroupPrefix: [ 'rg-' ]
     CAF_PolicyDefinitionPrefix: [ 'policy-' ]
     CAF_APIManagementPrefix: [ 'apim-' ]
+    CAF_ManagedIdentityPrefix: [ 'id-' ]
 
     # Networking
     CAF_VirtualNetworkPrefix: [ 'vnet-' ]
     CAF_SubnetPrefix: [ 'snet-' ]
+    CAF_VirtualNetworkPeeringPrefix: [ 'peer-' ]
     CAF_NetworkInterfacePrefix: [ 'nic-' ]
     CAF_PublicIPPrefix: [ 'pip-' ]
     CAF_LoadBalancerPrefix: [ 'lbi-', 'lbe-' ]
@@ -26,6 +33,9 @@ spec:
     CAF_ApplicationGatewayPrefix: [ 'agw-' ]
     CAF_RouteTablePrefix: [ 'route-' ]
     CAF_TrafficManagerProfilePrefix: [ 'traf-' ]
+    CAF_FrontDoorPrefix: [ 'fd-' ]
+    CAF_CDNProfilePrefix: [ 'cdnp-' ]
+    CAF_CDNEndpointPrefix: [ 'cdne-' ]
 
     # Compute and Web
     CAF_VirtualMachinePrefix: [ 'vm' ]
@@ -79,6 +89,9 @@ spec:
 
     # Management and governance
     CAF_KeyVaultPrefix: [ 'kv-' ]
+
+    CAF_MatchTagNameCase: true
+    CAF_MatchTagValueCase: true
 
     # Required tags
     CAF_ResourceMandatoryTags: [ ]

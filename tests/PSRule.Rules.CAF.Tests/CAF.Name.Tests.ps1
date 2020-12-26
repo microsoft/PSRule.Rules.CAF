@@ -6,9 +6,7 @@
 #
 
 [CmdletBinding()]
-param (
-
-)
+param ()
 
 # Setup error handling
 $ErrorActionPreference = 'Stop';
@@ -21,193 +19,413 @@ if ($Env:SYSTEM_DEBUG -eq 'true') {
 # Setup tests paths
 $rootPath = $PWD;
 Import-Module (Join-Path -Path $rootPath -ChildPath out/modules/PSRule.Rules.CAF) -Force;
-$here = (Resolve-Path $PSScriptRoot).Path;
 
 Describe 'CAF.Name' -Tag 'name' {
-    $dataPath = Join-Path -Path $here -ChildPath 'Resources.*.json';
+    $invokeParams = @{
+        Module = 'PSRule.Rules.CAF'
+        WarningAction = 'Ignore'
+        ErrorAction = 'Stop'
+    }
 
-    Context 'Conditions' {
-        $invokeParams = @{
-            Module = 'PSRule.Rules.CAF'
-            WarningAction = 'Ignore'
-            ErrorAction = 'Stop'
-        }
-        $result = Invoke-PSRule @invokeParams -InputPath $dataPath -Outcome All;
-
-        It 'CAF.Name.RG' {
-            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Name.RG' };
-
-            # Fail
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'rgB';
-
-            # Pass
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'rg-A';
+    Context 'CAF.Name.RG' {
+        $validNames = @(
+            'rg-test-001'
+        )
+        $invalidNames = @(
+            'rg-Test-001'
+            'rgtest001'
+            'test-rg-001'
+        )
+        $testObject = [PSCustomObject]@{
+            Name = ''
+            ResourceType = 'Microsoft.Resources/resourceGroups'
         }
 
-        It 'CAF.Name.VNET' {
-            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Name.VNET' };
-
-            # Fail
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -BeIn 'vnetB';
-
-            # Pass
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 3;
-            $ruleResult.TargetName | Should -BeIn 'vnet-A', 'vnet-D', 'vnet-C';
+        # Pass
+        foreach ($name in $validNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.RG';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Pass';
+            }
         }
 
-        It 'CAF.Name.Subnet' {
-            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Name.Subnet' };
+        # Fail
+        foreach ($name in $invalidNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.RG';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Fail';
+            }
+        }
+    }
 
-            # Fail
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 2;
-            $ruleResult.TargetName | Should -BeIn 'vnetB', 'vnet-D';
-
-            # Pass
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 2;
-            $ruleResult.TargetName | Should -BeIn 'vnet-A', 'vnet-C';
+    Context 'CAF.Name.VNET' {
+        $validNames = @(
+            'vnet-test-001'
+        )
+        $invalidNames = @(
+            'vnet-Test-001'
+            'vnetest001'
+            'test-vnet-001'
+        )
+        $testObject = [PSCustomObject]@{
+            Name = ''
+            ResourceType = 'Microsoft.Network/virtualNetworks'
         }
 
-        It 'CAF.Name.VNG' {
-            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Name.VNG' };
-
-            # Fail
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'vng-A';
-
-            # Pass
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'vgw-B';
+        # Pass
+        foreach ($name in $validNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.VNET';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Pass';
+            }
         }
 
-        It 'CAF.Name.Connection' {
-            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Name.Connection' };
+        # Fail
+        foreach ($name in $invalidNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.VNET';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Fail';
+            }
+        }
+    }
 
-            # Fail
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 2;
-            $ruleResult.TargetName | Should -BeIn 'expressroute-connection', 'connection-B';
+    Context 'CAF.Name.Subnet' {
+        $validNames = @(
+            'snet-test-001'
+        )
+        $invalidNames = @(
+            'snet-Test-001'
+            'snettest001'
+            'test-snet-001'
+        )
+        $testObject = @(
+            [PSCustomObject]@{
+                Name = ''
+                ResourceType = 'Microsoft.Network/virtualNetworks/subnets'
+            }
+            [PSCustomObject]@{
+                Name = ''
+                ResourceType = 'Microsoft.Network/virtualNetworks'
+                Properties = @{
+                    subnets = @(
+                        @{
+                            Name = ''
+                        }
+                    )
+                }
+            }
+        )
 
-            # Pass
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 3;
-            $ruleResult.TargetName | Should -BeIn 'cn-expressroute', 'cn-C', 'cn-A';
+        # Pass
+        foreach ($name in $validNames) {
+            It $name {
+                $testObject[0].Name = $name;
+                $testObject[1].Properties.Subnets[0].Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.Subnet';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -BeIn 'Pass';
+            }
         }
 
-        It 'CAF.Name.NSG' {
-            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Name.NSG' };
+        # Fail
+        foreach ($name in $invalidNames) {
+            It $name {
+                $testObject[0].Name = $name;
+                $testObject[1].Properties.Subnets[0].Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.Subnet';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -BeIn 'Fail';
+            }
+        }
+    }
 
-            # Fail
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -BeIn 'nsgB';
-
-            # Pass
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 2;
-            $ruleResult.TargetName | Should -BeIn 'nsg-A', 'nsg-C';
+    Context 'CAF.Name.VNG' {
+        $validNames = @(
+            'vgw-test-001'
+        )
+        $invalidNames = @(
+            'vgw-Test-001'
+            'vgwtest001'
+            'test-vgw-001'
+        )
+        $testObject = [PSCustomObject]@{
+            Name = ''
+            ResourceType = 'Microsoft.Network/virtualNetworkGateways'
         }
 
-        It 'CAF.Name.Route' {
-            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Name.Route' };
-
-            # Fail
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'routeB';
-
-            # Pass
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'route-A';
+        # Pass
+        foreach ($name in $validNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.VNG';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Pass';
+            }
         }
 
-        It 'CAF.Name.VM' {
-            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Name.VM' };
+        # Fail
+        foreach ($name in $invalidNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.VNG';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Fail';
+            }
+        }
+    }
 
-            # Fail
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'bvm';
-
-            # Pass
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'vm-A';
+    Context 'CAF.Name.Connection' {
+        $validNames = @(
+            'cn-test-001'
+        )
+        $invalidNames = @(
+            'cn-Test-001'
+            'cntest001'
+            'test-cn-001'
+        )
+        $testObject = [PSCustomObject]@{
+            Name = ''
+            ResourceType = 'Microsoft.Network/connections'
         }
 
-        It 'CAF.Name.Storage' {
-            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Name.Storage' };
-
-            # Fail
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'bstorage';
-
-            # Pass
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'storagea';
+        # Pass
+        foreach ($name in $validNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.Connection';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Pass';
+            }
         }
 
-        It 'CAF.Name.PublicIP' {
-            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Name.PublicIP' };
+        # Fail
+        foreach ($name in $invalidNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.Connection';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Fail';
+            }
+        }
+    }
 
-            # Fail
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'pipB';
-
-            # Pass
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'pip-A';
+    Context 'CAF.Name.NSG' {
+        $validNames = @(
+            'nsg-test-001'
+        )
+        $invalidNames = @(
+            'nsg-Test-001'
+            'nsgtest001'
+            'test-nsg-001'
+        )
+        $testObject = [PSCustomObject]@{
+            Name = ''
+            ResourceType = 'Microsoft.Network/networkSecurityGroups'
         }
 
-        It 'CAF.Name.LoadBalancer' {
-            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Name.LoadBalancer' };
+        # Pass
+        foreach ($name in $validNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.NSG';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Pass';
+            }
+        }
 
-            # Fail
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'lbB';
+        # Fail
+        foreach ($name in $invalidNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.NSG';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Fail';
+            }
+        }
+    }
 
-            # Pass
-            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'lbe-A';
+    Context 'CAF.Name.Route' {
+        $validNames = @(
+            'route-test-001'
+        )
+        $invalidNames = @(
+            'route-Test-001'
+            'routetest001'
+            'test-route-001'
+        )
+        $testObject = [PSCustomObject]@{
+            Name = ''
+            ResourceType = 'Microsoft.Network/routeTables'
+        }
+
+        # Pass
+        foreach ($name in $validNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.Route';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Pass';
+            }
+        }
+
+        # Fail
+        foreach ($name in $invalidNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.Route';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Fail';
+            }
+        }
+    }
+
+    Context 'CAF.Name.VM' {
+        $validNames = @(
+            'vm-test-001'
+            'vmtest001'
+        )
+        $invalidNames = @(
+            'vm-Test-001'
+            'test-vm-001'
+        )
+        $testObject = [PSCustomObject]@{
+            Name = ''
+            ResourceType = 'Microsoft.Compute/virtualMachines'
+        }
+
+        # Pass
+        foreach ($name in $validNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.VM';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Pass';
+            }
+        }
+
+        # Fail
+        foreach ($name in $invalidNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.VM';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Fail';
+            }
+        }
+    }
+
+    Context 'CAF.Name.Storage' {
+        $validNames = @(
+            'storage001'
+            'stvm001'
+            'dls001'
+        )
+        $invalidNames = @(
+            'sTest001'
+            'testst001'
+        )
+        $testObject = [PSCustomObject]@{
+            Name = ''
+            ResourceType = 'Microsoft.Storage/storageAccounts'
+        }
+
+        # Pass
+        foreach ($name in $validNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.Storage';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Pass';
+            }
+        }
+
+        # Fail
+        foreach ($name in $invalidNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.Storage';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Fail';
+            }
+        }
+    }
+
+    Context 'CAF.Name.PublicIP' {
+        $validNames = @(
+            'pip-test-001'
+        )
+        $invalidNames = @(
+            'pip-Test-001'
+            'piptest001'
+            'test-pip-001'
+        )
+        $testObject = [PSCustomObject]@{
+            Name = ''
+            ResourceType = 'Microsoft.Network/publicIPAddresses'
+        }
+
+        # Pass
+        foreach ($name in $validNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.PublicIP';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Pass';
+            }
+        }
+
+        # Fail
+        foreach ($name in $invalidNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.PublicIP';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Fail';
+            }
+        }
+    }
+
+    Context 'CAF.Name.LoadBalancer' {
+        $validNames = @(
+            'lbi-test-001'
+            'lbe-test-001'
+        )
+        $invalidNames = @(
+            'lbi-Test-001'
+            'lbetest001'
+            'test-lbi-001'
+        )
+        $testObject = [PSCustomObject]@{
+            Name = ''
+            ResourceType = 'Microsoft.Network/loadBalancers'
+        }
+
+        # Pass
+        foreach ($name in $validNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.LoadBalancer';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Pass';
+            }
+        }
+
+        # Fail
+        foreach ($name in $invalidNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.LoadBalancer';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Fail';
+            }
         }
     }
 }

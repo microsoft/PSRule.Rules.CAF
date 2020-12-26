@@ -161,11 +161,11 @@ task PSScriptAnalyzer NuGet, {
 
 # Synopsis: Install PSRule
 task PSRule NuGet, {
-    if ($Null -eq (Get-InstalledModule -Name PSRule -MinimumVersion '0.20.0' -AllowPrerelease -ErrorAction Ignore)) {
-        Install-Module -Name PSRule -Repository PSGallery -MinimumVersion '0.20.0' -AllowPrerelease -Scope CurrentUser -Force;
+    if ($Null -eq (Get-InstalledModule -Name PSRule -MinimumVersion '0.22.0' -AllowPrerelease -ErrorAction Ignore)) {
+        Install-Module -Name PSRule -Repository PSGallery -MinimumVersion '0.22.0' -AllowPrerelease -Scope CurrentUser -Force;
     }
-    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.Azure -MinimumVersion '0.15.0' -ErrorAction Ignore)) {
-        Install-Module -Name PSRule.Rules.Azure -Repository PSGallery -MinimumVersion '0.15.0' -Scope CurrentUser -Force;
+    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.Azure -MinimumVersion '0.18.0' -ErrorAction Ignore)) {
+        Install-Module -Name PSRule.Rules.Azure -Repository PSGallery -MinimumVersion '0.18.0' -Scope CurrentUser -Force;
     }
     Import-Module -Name PSRule.Rules.Azure -Verbose:$False;
 }
@@ -240,10 +240,17 @@ task Analyze Build, PSScriptAnalyzer, {
     Invoke-ScriptAnalyzer -Path out/modules/PSRule.Rules.CAF;
 }
 
-# Synopsis: Build table of content for rules
+# Synopsis: Build table of content for rules and baselines
 task BuildRuleDocs Build, PSRule, PSDocs, {
     Import-Module (Join-Path -Path $PWD -ChildPath out/modules/PSRule.Rules.CAF) -Force;
     $Null = Invoke-PSDocument -Name module -OutputPath .\docs\rules\en\ -Path .\RuleToc.Doc.ps1;
+
+    $baselines = Get-PSRuleBaseline -Module PSRule.Rules.CAF -WarningAction SilentlyContinue;
+    $Null = $baselines | ForEach-Object {
+        if ($_.Name -like 'CAF.*') {
+            $_ | Invoke-PSDocument -Name baseline -InstanceName $_.Name -OutputPath .\docs\baselines\en\ -Path .\BaselineToc.Doc.ps1;
+        }
+    }
 }
 
 # Synopsis: Build help
