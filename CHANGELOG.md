@@ -8,6 +8,8 @@
   - **Breaking change**: Separated resource and resource group tagging rules. [#38](https://github.com/microsoft/PSRule.Rules.CAF/issues/38)
     - Renamed `CAF.Tag.Required` to `CAF.Tag.Resource`.
     - Moved resource group tagging requirements from `CAF.Tag.Resource` to `CAF.Tag.ResourceGroup`.
+- Engineering:
+  - Updated to PSRule v1.0.0. [#37](https://github.com/microsoft/PSRule.Rules.CAF/issues/37)
 
 ## v0.1.0-B2009009 (pre-release)
 

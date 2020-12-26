@@ -16,7 +16,7 @@ bugs:
   url: https://github.com/Microsoft/PSRule.Rules.CAF/issues
 
 modules:
-  PSRule: ^0.22.0
+  PSRule: ^1.0.0
   PSRule.Rules.Azure: ^0.18.0
 
 tasks:
