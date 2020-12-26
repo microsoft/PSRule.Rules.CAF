@@ -6,9 +6,7 @@
 #
 
 [CmdletBinding()]
-param (
-
-)
+param ()
 
 # Setup error handling
 $ErrorActionPreference = 'Stop';
@@ -21,11 +19,8 @@ if ($Env:SYSTEM_DEBUG -eq 'true') {
 # Setup tests paths
 $rootPath = $PWD;
 Import-Module (Join-Path -Path $rootPath -ChildPath out/modules/PSRule.Rules.CAF) -Force;
-$here = (Resolve-Path $PSScriptRoot).Path;
 
 Describe 'CAF.Tag' -Tag 'tag' {
-    $dataPath = Join-Path -Path $here -ChildPath 'Resources.*.json';
-
     Context 'Conditions' {
         $invokeParams = @{
             Module = 'PSRule.Rules.CAF'
@@ -71,13 +66,20 @@ Describe 'CAF.Tag' -Tag 'tag' {
                 Tags = @{
                     Environment = 'Prod'
                 }
+            },
+            @{
+                Name = 'vnet-C'
+                Type = 'Microsoft.Network/virtualNetworks'
+                Tags = @{
+                    env = 'prod'
+                }
             }
         )
 
-        It 'CAF.Tag.Required' {
+        It 'CAF.Tag.Resource' {
             # Not set
             $result = $testObject | Invoke-PSRule @invokeParams -Outcome All;
-            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Tag.Required' };
+            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Tag.Resource' };
 
             # Fail
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
@@ -85,29 +87,74 @@ Describe 'CAF.Tag' -Tag 'tag' {
 
             # Pass
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
-            $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 5;
-            $ruleResult.TargetName | Should -BeIn 'rg-A', 'rg-B', 'rg-C', 'vnet-A', 'vnet-B';
+            $ruleResult | Should -BeNullOrEmpty;
 
             # With resource tags set
-            $result = $testObject | Invoke-PSRule @invokeParams -Outcome All -Option @{ 'Configuration.CAF_ResourceMandatoryTags' = @('Env') };
-            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Tag.Required' };
+            $result = $testObject | Invoke-PSRule @invokeParams -Outcome All -Option @{
+                'Configuration.CAF_ResourceMandatoryTags' = @('Env')
+            };
+            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Tag.Resource' };
+
+            # Fail
+            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
+            $ruleResult | Should -Not -BeNullOrEmpty;
+            $ruleResult.Length | Should -Be 2;
+            $ruleResult.TargetName | Should -BeIn 'vnet-B', 'vnet-C';
+
+            # Pass
+            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
+            $ruleResult | Should -Not -BeNullOrEmpty;
+            $ruleResult.Length | Should -Be 1;
+            $ruleResult.TargetName | Should -BeIn 'vnet-A';
+
+            # None
+            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'None' });
+            $ruleResult | Should -Not -BeNullOrEmpty;
+            $ruleResult.Length | Should -Be 4;
+            $ruleResult.TargetName | Should -BeIn 'rg-A', 'rg-B', 'rg-C', 'GatewaySubnet';
+
+            # With resource tags set, non-case-sensitive
+            $result = $testObject | Invoke-PSRule @invokeParams -Outcome All -Option @{
+                'Configuration.CAF_ResourceMandatoryTags' = 'Env'
+                'Configuration.CAF_MatchTagNameCase' = $False
+            };
+            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Tag.Resource' };
 
             # Fail
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
             $ruleResult | Should -Not -BeNullOrEmpty;
             $ruleResult.Length | Should -Be 1;
-            $ruleResult.TargetName | Should -Be 'vnet-B';
+            $ruleResult.TargetName | Should -BeIn 'vnet-B';
 
             # Pass
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
             $ruleResult | Should -Not -BeNullOrEmpty;
+            $ruleResult.Length | Should -Be 2;
+            $ruleResult.TargetName | Should -BeIn 'vnet-A', 'vnet-C';
+
+            # None
+            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'None' });
+            $ruleResult | Should -Not -BeNullOrEmpty;
             $ruleResult.Length | Should -Be 4;
-            $ruleResult.TargetName | Should -BeIn 'rg-A', 'rg-B', 'rg-C', 'vnet-A';
+            $ruleResult.TargetName | Should -BeIn 'rg-A', 'rg-B', 'rg-C', 'GatewaySubnet';
+        }
+
+        It 'CAF.Tag.ResourceGroup' {
+            # Not set
+            $result = $testObject | Invoke-PSRule @invokeParams -Outcome All;
+            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Tag.ResourceGroup' };
+
+            # Fail
+            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
+            $ruleResult | Should -BeNullOrEmpty;
+
+            # Pass
+            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
+            $ruleResult | Should -BeNullOrEmpty;
 
             # With resource group tags set
             $result = $testObject | Invoke-PSRule @invokeParams -Outcome All -Option @{ 'Configuration.CAF_ResourceGroupMandatoryTags' = @('Env') };
-            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Tag.Required' };
+            $filteredResult = $result | Where-Object { $_.RuleName -eq 'CAF.Tag.ResourceGroup' };
 
             # Fail
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
@@ -118,8 +165,14 @@ Describe 'CAF.Tag' -Tag 'tag' {
             # Pass
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
             $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 3;
+            $ruleResult.Length | Should -Be 1;
             $ruleResult.TargetName | Should -BeIn 'rg-A', 'vnet-A', 'vnet-B';
+
+            # None
+            $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'None' });
+            $ruleResult | Should -Not -BeNullOrEmpty;
+            $ruleResult.Length | Should -Be 4;
+            $ruleResult.TargetName | Should -BeIn 'vnet-A', 'vnet-B', 'vnet-C', 'GatewaySubnet';
         }
 
         It 'CAF.Tag.Environment' {
@@ -129,7 +182,9 @@ Describe 'CAF.Tag' -Tag 'tag' {
 
             # Fail
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Fail' });
-            $ruleResult | Should -BeNullOrEmpty;
+            $ruleResult | Should -Not -BeNullOrEmpty;
+            $ruleResult.Length | Should -Be 1;
+            $ruleResult.TargetName | Should -BeIn 'vnet-C';
 
             # Pass
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'Pass' });
@@ -162,8 +217,8 @@ Describe 'CAF.Tag' -Tag 'tag' {
             # None
             $ruleResult = @($filteredResult | Where-Object { $_.Outcome -eq 'None' });
             $ruleResult | Should -Not -BeNullOrEmpty;
-            $ruleResult.Length | Should -Be 3;
-            $ruleResult.TargetName | Should -BeIn 'rg-B', 'vnet-A', 'GatewaySubnet';
+            $ruleResult.Length | Should -Be 4;
+            $ruleResult.TargetName | Should -BeIn 'rg-B', 'vnet-A', 'vnet-C', 'GatewaySubnet';
         }
     }
 }

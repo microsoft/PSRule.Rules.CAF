@@ -9,7 +9,8 @@ The following rules are included within `PSRule.Rules.CAF`.
 Name | Synopsis
 ---- | --------
 [CAF.Tag.Environment](CAF.Tag.Environment.md) | Tag resources and resource groups with a valid environment.
-[CAF.Tag.Required](CAF.Tag.Required.md) | Tag resources and resource groups with mandatory tags.
+[CAF.Tag.Resource](CAF.Tag.Resource.md) | Tag resources with mandatory tags.
+[CAF.Tag.ResourceGroup](CAF.Tag.ResourceGroup.md) | Tag resource groups with mandatory tags.
 
 ### Resource naming
 

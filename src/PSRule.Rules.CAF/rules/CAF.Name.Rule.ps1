@@ -8,12 +8,18 @@
 
 # Synopsis: Use standard resource groups names.
 Rule 'CAF.Name.RG' -Type 'Microsoft.Resources/resourceGroups' -If { !(CAF_IsManagedRG) } {
-    $Assert.StartsWith($TargetObject, 'Name', $Configuration.CAF_ResourceGroupPrefix)
+    $Assert.StartsWith($PSRule, 'TargetName', $Configuration.CAF_ResourceGroupPrefix, $True);
+    if ($Configuration.CAF_UseLowerNames -eq $True) {
+        $Assert.IsLower($PSRule, 'TargetName');
+    }
 }
 
 # Synopsis: Use standard virtual networks names.
 Rule 'CAF.Name.VNET' -Type 'Microsoft.Network/virtualNetworks' {
-    $Assert.StartsWith($TargetObject, 'Name', $Configuration.CAF_VirtualNetworkPrefix)
+    $Assert.StartsWith($PSRule, 'TargetName', $Configuration.CAF_VirtualNetworkPrefix, $True);
+    if ($Configuration.CAF_UseLowerNames -eq $True) {
+        $Assert.IsLower($PSRule, 'TargetName');
+    }
 }
 
 # Synopsis: Use standard subnets names.
@@ -30,47 +36,72 @@ Rule 'CAF.Name.Subnet' -Type 'Microsoft.Network/virtualNetworks', 'Microsoft.Net
             $Assert.Pass();
         }
         else {
-            $Assert.StartsWith($subnet, 'Name', $Configuration.CAF_SubnetPrefix)
+            $Assert.StartsWith($subnet, 'Name', $Configuration.CAF_SubnetPrefix);
+            if ($Configuration.CAF_UseLowerNames -eq $True) {
+                $Assert.IsLower($subnet, 'Name');
+            }
         }
     }
 }
 
 # Synopsis: Use standard virtual network gateway names.
 Rule 'CAF.Name.VNG' -Type 'Microsoft.Network/virtualNetworkGateways' {
-    $Assert.StartsWith($TargetObject, 'Name', $Configuration.CAF_VirtualNetworkGatewayPrefix)
+    $Assert.StartsWith($PSRule, 'TargetName', $Configuration.CAF_VirtualNetworkGatewayPrefix, $True);
+    if ($Configuration.CAF_UseLowerNames -eq $True) {
+        $Assert.IsLower($PSRule, 'TargetName');
+    }
 }
 
 # Synopsis: Use standard virtual networks gateway connection names.
 Rule 'CAF.Name.Connection' -Type 'Microsoft.Network/connections' {
-    $Assert.StartsWith($TargetObject, 'Name', $Configuration.CAF_GatewayConnectionPrefix)
+    $Assert.StartsWith($PSRule, 'TargetName', $Configuration.CAF_GatewayConnectionPrefix, $True);
+    if ($Configuration.CAF_UseLowerNames -eq $True) {
+        $Assert.IsLower($PSRule, 'TargetName');
+    }
 }
 
 # Synopsis: Use standard network security group names.
 Rule 'CAF.Name.NSG' -Type 'Microsoft.Network/networkSecurityGroups' {
-    $Assert.StartsWith($TargetObject, 'Name', $Configuration.CAF_NetworkSecurityGroupPrefix)
+    $Assert.StartsWith($PSRule, 'TargetName', $Configuration.CAF_NetworkSecurityGroupPrefix, $True);
+    if ($Configuration.CAF_UseLowerNames -eq $True) {
+        $Assert.IsLower($PSRule, 'TargetName');
+    }
 }
 
 # Synopsis: Use standard route table names.
 Rule 'CAF.Name.Route' -Type 'Microsoft.Network/routeTables' {
-    $Assert.StartsWith($TargetObject, 'Name', $Configuration.CAF_RouteTablePrefix)
+    $Assert.StartsWith($PSRule, 'TargetName', $Configuration.CAF_RouteTablePrefix, $True);
+    if ($Configuration.CAF_UseLowerNames -eq $True) {
+        $Assert.IsLower($PSRule, 'TargetName');
+    }
 }
 
 # Synopsis: Use standard virtual machines names.
 Rule 'CAF.Name.VM' -Type 'Microsoft.Compute/virtualMachines' {
-    $Assert.StartsWith($TargetObject, 'Name', $Configuration.CAF_VirtualMachinePrefix)
+    $Assert.StartsWith($PSRule, 'TargetName', $Configuration.CAF_VirtualMachinePrefix, $True);
+    if ($Configuration.CAF_UseLowerNames -eq $True) {
+        $Assert.IsLower($PSRule, 'TargetName');
+    }
 }
 
 # Synopsis: Use standard storage accounts names.
 Rule 'CAF.Name.Storage' -Type 'Microsoft.Storage/storageAccounts' {
-    $Assert.StartsWith($TargetObject, 'Name', $Configuration.CAF_StoragePrefix)
+    $Assert.StartsWith($PSRule, 'TargetName', $Configuration.CAF_StoragePrefix, $True);
+    $Assert.IsLower($PSRule, 'TargetName');
 }
 
 # Synopsis: Use standard public IP address names.
 Rule 'CAF.Name.PublicIP' -Type 'Microsoft.Network/publicIPAddresses' {
-    $Assert.StartsWith($TargetObject, 'Name', $Configuration.CAF_PublicIPPrefix)
+    $Assert.StartsWith($PSRule, 'TargetName', $Configuration.CAF_PublicIPPrefix, $True);
+    if ($Configuration.CAF_UseLowerNames -eq $True) {
+        $Assert.IsLower($PSRule, 'TargetName');
+    }
 }
 
 # Synopsis: Use standard load balancer names.
 Rule 'CAF.Name.LoadBalancer' -Type 'Microsoft.Network/loadBalancers' -If { !(CAF_IsManagedLB) } {
-    $Assert.StartsWith($TargetObject, 'Name', $Configuration.CAF_LoadBalancerPrefix)
+    $Assert.StartsWith($PSRule, 'TargetName', $Configuration.CAF_LoadBalancerPrefix, $True);
+    if ($Configuration.CAF_UseLowerNames -eq $True) {
+        $Assert.IsLower($PSRule, 'TargetName');
+    }
 }
