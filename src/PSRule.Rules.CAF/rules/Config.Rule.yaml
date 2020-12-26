@@ -1,6 +1,6 @@
 
 ---
-# Synopsis: 
+# Synopsis: Configuration for PSRule.Rules.CAF
 kind: ModuleConfig
 metadata:
   name: PSRule.Rules.CAF
