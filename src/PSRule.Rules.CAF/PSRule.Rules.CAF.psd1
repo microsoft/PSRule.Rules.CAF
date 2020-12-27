@@ -4,7 +4,6 @@
 #
 # PSRule.Rules.CAF
 #
-
 @{
 
 # Script module or binary module file associated with this manifest.
@@ -31,7 +30,7 @@ Copyright = '(c) Microsoft Corporation. All rights reserved.'
 # Description of the functionality provided by this module
 Description = 'A suite of rules to validate Azure resources against the Cloud Adoption Framework (CAF) using PSRule.
 
-This project is to be considered a proof-of-concept and not a supported product.'
+This project uses GitHub Issues to track bugs and feature requests. See GitHub project for more information.'
 
 # Minimum version of the Windows PowerShell engine required by this module
 PowerShellVersion = '5.1'

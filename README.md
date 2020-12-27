@@ -4,16 +4,25 @@ A suite of rules to validate Azure resources against the Cloud Adoption Framewor
 
 ![ci-badge]
 
-**More to come soon.**
+Features of PSRule for CAF include:
 
-## Disclaimer
+- [Ready to go](docs/features.md#ready-to-go) - Leverage configurable rules to validate Azure resources.
+- [DevOps](docs/features.md#devops) - Validate resources and infrastructure code pre or post-deployment.
+- [Cross-platform](docs/features.md#cross-platform) - Run on MacOS, Linux, and Windows.
 
-This project is to be considered a **proof-of-concept** and **not a supported product**.
+## Support
 
-For issues with rules and documentation please check our GitHub [issues](https://github.com/Microsoft/PSRule.Rules.CAF/issues) page.
-If you do not see your problem captured, please file a new issue and follow the provided template.
+This project uses GitHub Issues to track bugs and feature requests.
+Please search the existing issues before filing new issues to avoid duplicates.
+
+- For new issues, file your bug or feature request as a new [Issue].
+- For help and questions about using this project, we have a Gitter room which you can join below.
+
+[![Join the chat][chat-badge]][chat]
 
 If you have any problems with the [PSRule][engine] engine, please check the project GitHub [issues](https://github.com/Microsoft/PSRule/issues) page instead.
+
+Support for this project/ product is limited to the resources listed above.
 
 ## Getting the modules
 
@@ -103,7 +112,10 @@ or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any addi
 
 This project is [licensed under the MIT License](LICENSE).
 
-[install]: docs/scenarios/install-instructions.md
+[issue]: https://github.com/Microsoft/PSRule.Rules.CAF/issues
+[install]: docs/install-instructions.md
 [ci-badge]: https://dev.azure.com/bewhite/PSRule.Rules.CAF/_apis/build/status/PSRule.Rules.CAF-CI?branchName=main
 [module]: https://www.powershellgallery.com/packages/PSRule.Rules.CAF
 [engine]: https://github.com/Microsoft/PSRule
+[chat]: https://gitter.im/PSRule/PSRule.Rules.CAF?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
+[chat-badge]: https://img.shields.io/static/v1.svg?label=chat&message=on%20gitter&color=informational&logo=gitter
