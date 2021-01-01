@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+What's changed since pre-release v0.1.0-B2012004:
+
+- Bug fixes:
+  - Fixed use of lower case `Tags` resource property. [#43](https://github.com/microsoft/PSRule.Rules.CAF/issues/43)
+
 ## v0.1.0-B2012004 (pre-release)
 
 What's changed since pre-release v0.1.0-B2009009:

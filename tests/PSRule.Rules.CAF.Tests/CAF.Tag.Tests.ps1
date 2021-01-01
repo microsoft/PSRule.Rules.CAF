@@ -56,7 +56,7 @@ Describe 'CAF.Tag' -Tag 'tag' {
             @{
                 Name = 'vnet-A'
                 Type = 'Microsoft.Network/virtualNetworks'
-                Tags = @{
+                tags = @{
                     Env = 'Prod'
                 }
             },
