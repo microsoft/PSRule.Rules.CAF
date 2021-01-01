@@ -11,7 +11,7 @@ Rule 'CAF.Tag.Resource' -If { (CAF_SupportsTags) -and !(CAF_IsResourceGroup) -an
     if ($required.Length -eq 0) {
         return $Assert.Pass();
     }
-    $Assert.HasField($TargetObject, 'Tags');
+    $Assert.HasField($TargetObject, 'tags');
     if ($Null -ne $TargetObject.Tags) {
         $Assert.HasFields($TargetObject.Tags, $required, $Configuration.CAF_MatchTagNameCase);
     }
@@ -23,14 +23,17 @@ Rule 'CAF.Tag.ResourceGroup' -Type 'Microsoft.Resources/resourceGroups' -If { ($
     if ($required.Length -eq 0) {
         return $Assert.Pass();
     }
-    $Assert.HasField($TargetObject, 'Tags');
+    $Assert.HasField($TargetObject, 'tags');
     if ($Null -ne $TargetObject.Tags) {
         $Assert.HasFields($TargetObject.Tags, $required, $Configuration.CAF_MatchTagNameCase);
     }
 }
 
 # Synopsis: Tag resources and resource groups with a valid environment.
-Rule 'CAF.Tag.Environment' -If { (CAF_SupportsTags) -and (Exists "Tags.$($Configuration.CAF_EnvironmentTag)") } {
-    $Assert.HasField($TargetObject, "Tags.$($Configuration.CAF_EnvironmentTag)", $Configuration.CAF_MatchTagNameCase);
-    $Assert.In($TargetObject, "Tags.$($Configuration.CAF_EnvironmentTag)", $Configuration.CAF_Environments, $Configuration.CAF_MatchTagValueCase)
+Rule 'CAF.Tag.Environment' -If { (CAF_SupportsTags) -and (Exists "tags.$($Configuration.CAF_EnvironmentTag)") } {
+    $Assert.HasField($TargetObject, 'tags');
+    if ($Null -ne $TargetObject.Tags) {
+        $Assert.HasField($TargetObject.Tags, $Configuration.CAF_EnvironmentTag, $Configuration.CAF_MatchTagNameCase);
+        $Assert.In($TargetObject.Tags, $Configuration.CAF_EnvironmentTag, $Configuration.CAF_Environments, $Configuration.CAF_MatchTagValueCase);
+    }
 }
