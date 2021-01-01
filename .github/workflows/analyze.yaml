@@ -4,6 +4,7 @@
 name: Analyze
 on:
 - pull_request
+- push
 jobs:
   analyze:
     name: Analyze repository
@@ -15,3 +16,6 @@ jobs:
 
     - name: Run PSRule analysis
       uses: Microsoft/ps-rule@main
+      with:
+        modules: PSRule.Rules.MSFT.OSS
+        prerelease: true
