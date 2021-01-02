@@ -102,3 +102,20 @@ function global:CAF_IsManagedLB {
         )
     }
 }
+
+# Determines if the object is a managed storage account created by Azure
+function global:CAF_IsManagedStorage {
+    [CmdletBinding()]
+    [OutputType([System.Boolean])]
+    param ()
+    process {
+        if ($PSRule.TargetType -ne 'Microsoft.Storage/storageAccounts') {
+            return $False;
+        }
+        # Check for managed storage accounts
+        if ($Assert.HasFieldValue($TargetObject, 'Tags.ms-resource-usage', 'azure-cloud-shell').Result) {
+            return $True;
+        }
+        return $False;
+    }
+}

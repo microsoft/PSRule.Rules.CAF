@@ -7,6 +7,8 @@ What's changed since pre-release v0.1.0-B2101004:
 - Engineering:
   - Bump PSRule dependency to v1.0.1. [#49](https://github.com/microsoft/PSRule.Rules.CAF/issues/49)
   - Bump PSRule.Rules.Azure dependency to v0.19.0. [#49](https://github.com/microsoft/PSRule.Rules.CAF/issues/49)
+- Bug fixes:
+  - Fixed storage account name rule with Azure Cloud Shell. [#47](https://github.com/microsoft/PSRule.Rules.CAF/issues/47)
 
 ## v0.1.0-B2101004 (pre-release)
 
