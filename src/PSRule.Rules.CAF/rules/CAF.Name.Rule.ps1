@@ -85,7 +85,7 @@ Rule 'CAF.Name.VM' -Type 'Microsoft.Compute/virtualMachines' {
 }
 
 # Synopsis: Use standard storage accounts names.
-Rule 'CAF.Name.Storage' -Type 'Microsoft.Storage/storageAccounts' {
+Rule 'CAF.Name.Storage' -Type 'Microsoft.Storage/storageAccounts' -If { !(CAF_IsManagedStorage) } {
     $Assert.StartsWith($PSRule, 'TargetName', $Configuration.CAF_StoragePrefix, $True);
     $Assert.IsLower($PSRule, 'TargetName');
 }

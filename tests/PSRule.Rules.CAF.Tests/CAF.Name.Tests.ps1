@@ -331,6 +331,7 @@ Describe 'CAF.Name' -Tag 'name' {
         $invalidNames = @(
             'sTest001'
             'testst001'
+            'cs001'
         )
         $testObject = [PSCustomObject]@{
             Name = ''
@@ -355,6 +356,19 @@ Describe 'CAF.Name' -Tag 'name' {
                 $ruleResult | Should -Not -BeNullOrEmpty;
                 $ruleResult.Outcome | Should -Be 'Fail';
             }
+        }
+
+        It 'Cloud Shell' {
+            $testObject = [PSCustomObject]@{
+                Name = 'cs001'
+                ResourceType = 'Microsoft.Storage/storageAccounts'
+                Tags = @{
+                    'ms-resource-usage' = 'azure-cloud-shell'
+                }
+            }
+            $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.Storage' -Outcome All;
+            $ruleResult | Should -Not -BeNullOrEmpty;
+            $ruleResult.Outcome | Should -Be 'None';
         }
     }
 
