@@ -1,5 +1,5 @@
 ---
-pillar: Operational Excellence
+pillar: Cost Optimization
 category: Metadata tagging
 online version: https://github.com/microsoft/PSRule.Rules.CAF/blob/main/docs/rules/en/CAF.Tag.Environment.md
 ---
@@ -32,7 +32,7 @@ To configure this rule:
 
 ## LINKS
 
-- [Metadata tags](https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/naming-and-tagging#metadata-tags)
-- [Use tags to organize your Azure resources](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/tag-resources)
-- [Azure Well-Architected Framework](https://docs.microsoft.com/en-gb/azure/architecture/framework/devops/app-design#tagging-and-resource-naming)
-- [Tag support for Azure resources](https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/tag-support)
+- [Define your tagging strategy](https://docs.microsoft.com/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging)
+- [Use tags to organize your Azure resources](https://docs.microsoft.com/azure/azure-resource-manager/management/tag-resources)
+- [Azure Well-Architected Framework](https://docs.microsoft.com/azure/architecture/framework/cost/design-governance#enforce-resource-tagging)
+- [Tag support for Azure resources](https://docs.microsoft.com/azure/azure-resource-manager/management/tag-support)
