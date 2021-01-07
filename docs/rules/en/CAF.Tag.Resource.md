@@ -41,7 +41,7 @@ To configure this rule:
 
 ## LINKS
 
-- [Metadata tags](https://docs.microsoft.com/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging)
+- [Define your tagging strategy](https://docs.microsoft.com/azure/cloud-adoption-framework/ready/azure-best-practices/resource-tagging)
 - [Use tags to organize your Azure resources](https://docs.microsoft.com/azure/azure-resource-manager/management/tag-resources)
 - [Azure Well-Architected Framework](https://docs.microsoft.com/azure/architecture/framework/cost/design-governance#enforce-resource-tagging)
 - [Tag support for Azure resources]
