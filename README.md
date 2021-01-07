@@ -15,10 +15,8 @@ Features of PSRule for CAF include:
 This project uses GitHub Issues to track bugs and feature requests.
 Please search the existing issues before filing new issues to avoid duplicates.
 
-- For new issues, file your bug or feature request as a new [Issue].
-- For help and questions about using this project, we have a Gitter room which you can join below.
-
-[![Join the chat][chat-badge]][chat]
+- For new issues, file your bug or feature request as a new [issue].
+- For help, discussion, and support questions about using this project, join or start a [discussion].
 
 If you have any problems with the [PSRule][engine] engine, please check the project GitHub [issues](https://github.com/Microsoft/PSRule/issues) page instead.
 
