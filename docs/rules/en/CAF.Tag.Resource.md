@@ -22,7 +22,7 @@ Some examples include; de-provisioning, scaling, and patching.
 
 ## RECOMMENDATION
 
-Consider tagging the resources with the mandatory tags.
+Consider tagging resources with the mandatory tags.
 Additionally consider enforcing mandatory tags and using inheritance with Azure Policy.
 
 ## NOTES
@@ -34,10 +34,17 @@ By default:
 
 - No mandatory tags are configured.
 - Tag names are case-sensitive.
+- Tag values are case-sensitive.
 
 To configure this rule:
 
 - Override the `CAF_ResourceMandatoryTags` configuration value with an array of required tags.
+- Override `CAF_MatchTagNameCase` with `false` to make tag names case-insensitive.
+By default tag names are case-sensitive.
+This option affects all tag rules.
+- Override `CAF_MatchTagValueCase` with `false` to make tag values case-insensitive.
+By default tag values are case-sensitive.
+This option affects all tag rules.
 
 ## LINKS
 

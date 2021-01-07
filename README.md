@@ -26,7 +26,8 @@ Support for this project/ product is limited to the resources listed above.
 
 ## Getting the modules
 
-This project requires the `PSRule`, `PSRule.Rules.Azure` and `Az` PowerShell modules. For details on each see [install].
+This project requires the `PSRule`, `PSRule.Rules.Azure` and `Az` PowerShell modules.
+For details on each see [install].
 
 You can download and install these modules from the PowerShell Gallery.
 
@@ -36,33 +37,149 @@ PSRule.Rules.CAF   | Validate Azure resources against the CAF. | [latest][module
 
 ## Getting started
 
-### Export resource data
+PSRule for CAF provides two methods for analyzing Azure resources:
 
-To validate Azure resources running in a subscription, export the resource data with the `Export-AzRuleData` cmdlet.
-The `Export-AzRuleData` cmdlet exports a resource graph for one or more subscriptions that can be used for analysis with the rules in this module.
+- _Pre-flight_ - Before resources are deployed from Azure Resource Manager (ARM) templates.
+- _In-flight_ - After resource are deployed to an Azure subscription.
 
-By default, resources for the current subscription context are exported. See below for more options.
+For additional details see the [FAQ](docs/features.md#frequently-asked-questions-faq).
 
-Before running this command you should connect to Azure by using the `Connect-AzAccount` cmdlet.
+### Using with GitHub Actions
+
+The following example shows how to setup Github Actions to validate templates pre-flight.
+
+1. See [Creating a workflow file][create-workflow].
+2. Export rule data from templates.
+3. Reference `Microsoft/ps-rule` with `modules: 'PSRule.Rules.CAF'`.
+Set option `prerelease: true` to use a pre-release version.
 
 For example:
 
-```powershell
-# Authenticate to Azure, only required if not currently connected
-Connect-AzAccount;
+```yaml
+# Example: .github/workflows/analyze-arm.yaml
 
-# Export resource data
-Export-AzRuleData;
+#
+# STEP 1: Template validation
+#
+name: Analyze templates
+on:
+- pull_request
+jobs:
+  analyze_arm:
+    name: Analyze templates
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # STEP 2: Export template data for analysis
+    - name: Export templates
+      run: Install-Module PSRule.Rules.Azure -Force; Get-AzRuleTemplateLink | Export-AzTemplateRuleData -OutputPath out/templates/;
+      shell: pwsh
+
+    # STEP 3: Run analysis against exported data
+    - name: Analyze Azure template files
+      uses: Microsoft/ps-rule@main
+      with:
+        modules: 'PSRule.Rules.CAF'   # Analyze objects using the rules within the PSRule.Rules.CAF PowerShell module.
+        inputPath: 'out/templates/'   # Read objects from JSON files in 'out/templates/'.
+        prerelease: true              # Allow installation of pre-release module versions.
 ```
 
-### Validate resources
+### Using with Azure Pipelines
 
-To validate Azure resources use the extracted data with the `Invoke-PSRule` cmdlet.
+The following example shows how to setup Azure Pipelines to validate templates pre-flight.
+
+1. Install [PSRule extension][extension] for Azure DevOps marketplace.
+2. See [Creating a YAML pipeline][create-pipeline].
+3. Install `PSRule.Rules.CAF` using `ps-rule-install` task.
+Set option `prerelease: true` to use a pre-release version.
+4. Export rule data from templates.
+5. Reference `ps-rule-assert` with `modules: 'PSRule.Rules.CAF'`.
+
+For example:
+
+```yaml
+# Example: .azure-pipelines/analyze-arm.yaml
+
+#
+# STEP 2: Template validation
+#
+jobs:
+- job: 'analyze_arm'
+  displayName: 'Analyze templates'
+  pool:
+    vmImage: 'ubuntu-18.04'
+  steps:
+
+  # STEP 3: Install PSRule.Rules.CAF from the PowerShell Gallery
+  - task: ps-rule-install@0
+    displayName: Install PSRule.Rules.CAF
+    inputs:
+      module: PSRule.Rules.CAF    # Install PSRule.Rules.CAF from the PowerShell Gallery.
+      prerelease: true            # Allow installation of pre-release module versions.
+
+  # STEP 4: Export template data for analysis
+  - powershell: Get-AzRuleTemplateLink | Export-AzTemplateRuleData -OutputPath out/templates/;
+    displayName: 'Export template data'
+
+  # STEP 5: Run analysis against exported data
+  - task: ps-rule-assert@0
+    displayName: Analyze Azure template files
+    inputs:
+      inputType: inputPath
+      inputPath: 'out/templates/'                # Read objects from JSON files in 'out/templates/'.
+      modules: 'PSRule.Rules.CAF'                # Analyze objects using the rules within the PSRule.Rules.CAF PowerShell module.
+```
+
+### Using locally
+
+The following example shows how to setup PSRule locally to validate templates pre-flight.
+
+1. Install the `PSRule.Rules.CAF` module and dependencies from the PowerShell Gallery.
+2. Export rule data from templates.
+3. Run analysis against exported data.
 
 For example:
 
 ```powershell
-Invoke-PSRule -InputPath .\*.json -Module 'PSRule.Rules.CAF';
+# STEP 1: Install PSRule.Rules.CAF from the PowerShell Gallery
+Install-Module -Name 'PSRule.Rules.CAF' -Scope CurrentUser -AllowPrerelease;
+
+# STEP 2: Export template data for analysis
+Get-AzRuleTemplateLink | Export-AzTemplateRuleData -OutputPath out/templates/;
+
+# STEP 3: Run analysis against exported data
+Assert-PSRule -Module 'PSRule.Rules.CAF' -InputPath out/templates/;
+```
+
+### Export in-flight resource data
+
+The following example shows how to setup PSRule locally to validate resources running in a subscription.
+
+1. Install the `PSRule.Rules.CAF` module and dependencies from the PowerShell Gallery.
+2. Connect and set context to an Azure subscription from PowerShell.
+3. Export the resource data with the `Export-AzRuleData` cmdlet.
+4. Run analysis against exported data.
+
+For example:
+
+```powershell
+# STEP 1: Install PSRule.Rules.CAF from the PowerShell Gallery
+Install-Module -Name 'PSRule.Rules.CAF' -Scope CurrentUser -AllowPrerelease;
+
+# STEP 2: Authenticate to Azure, only required if not currently connected
+Connect-AzAccount;
+
+# Confirm the current subscription context
+Get-AzContext;
+
+# STEP 3: Exports a resource graph stored as JSON for analysis
+Export-AzRuleData;
+
+# STEP 4: Run analysis against exported data
+Assert-PSRule -Module 'PSRule.Rules.CAF' -InputPath out/templates/;
 ```
 
 ## Rule reference
@@ -70,6 +187,10 @@ Invoke-PSRule -InputPath .\*.json -Module 'PSRule.Rules.CAF';
 For a list of rules included in the `PSRule.Rules.CAF` module see:
 
 - [Module rule reference](docs/rules/en/module.md)
+
+Rules included in this module define a number of configurable values that can be set on an as need basis.
+By default these values use the standards defined by the CAF.
+A list of configurable values are included in the reference for each rule.
 
 ## Language reference
 
@@ -113,9 +234,12 @@ or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any addi
 This project is [licensed under the MIT License](LICENSE).
 
 [issue]: https://github.com/Microsoft/PSRule.Rules.CAF/issues
+[discussion]: https://github.com/microsoft/PSRule.Rules.CAF/discussions
 [install]: docs/install-instructions.md
 [ci-badge]: https://dev.azure.com/bewhite/PSRule.Rules.CAF/_apis/build/status/PSRule.Rules.CAF-CI?branchName=main
 [module]: https://www.powershellgallery.com/packages/PSRule.Rules.CAF
 [engine]: https://github.com/Microsoft/PSRule
 [chat]: https://gitter.im/PSRule/PSRule.Rules.CAF?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
 [chat-badge]: https://img.shields.io/static/v1.svg?label=chat&message=on%20gitter&color=informational&logo=gitter
+[create-workflow]: https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file
+[extension]: https://marketplace.visualstudio.com/items?itemName=bewhite.ps-rule
