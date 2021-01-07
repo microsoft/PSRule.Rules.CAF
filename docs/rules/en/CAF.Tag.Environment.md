@@ -29,6 +29,12 @@ To configure this rule:
 
 - Override `CAF_EnvironmentTag` with the name of the environment tag.
 - Override `CAF_Environments` with an array of valid environments.
+- Override `CAF_MatchTagNameCase` with `false` to make tag names case-insensitive.
+By default tag names are case-sensitive.
+This option affects all tag rules.
+- Override `CAF_MatchTagValueCase` with `false` to make tag values case-insensitive.
+By default tag values are case-sensitive.
+This option affects all tag rules.
 
 ## LINKS
 

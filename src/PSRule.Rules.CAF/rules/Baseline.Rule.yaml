@@ -8,8 +8,20 @@ spec:
 
   configuration:
 
-    # Naming
+    # Global options
+    # --------------
+
+    # Require resource and resource group names to use only lower-case letters
     CAF_UseLowerNames: true
+
+    # Require tag names to match exact case
+    CAF_MatchTagNameCase: true
+
+    # Require tag values to match exact case
+    CAF_MatchTagValueCase: true
+
+    # Naming prefixes
+    # ---------------
 
     # General
     CAF_ManagementGroupPrefix: [ 'mg-' ]
@@ -90,13 +102,15 @@ spec:
     # Management and governance
     CAF_KeyVaultPrefix: [ 'kv-' ]
 
-    CAF_MatchTagNameCase: true
-    CAF_MatchTagValueCase: true
+    # Resource tags
+    # -------------
 
-    # Required tags
+    # Mandatory tags for resources
     CAF_ResourceMandatoryTags: [ ]
+
+    # Mandatory tags for Resource Groups
     CAF_ResourceGroupMandatoryTags: [ ]
 
-    # Environment tag
+    # Use of environment tag
     CAF_EnvironmentTag: 'Env'
     CAF_Environments: [ 'Prod', 'Dev', 'QA', 'Stage', 'Test' ]
