@@ -47,9 +47,8 @@ For additional details see the [FAQ](docs/features.md#frequently-asked-questions
 The following example shows how to setup Github Actions to validate templates pre-flight.
 
 1. See [Creating a workflow file][create-workflow].
-2. Export rule data from templates.
+2. Export rule data from templates using PowerShell.
 3. Reference `Microsoft/ps-rule` with `modules: 'PSRule.Rules.CAF'`.
-Set option `prerelease: true` to use a pre-release version.
 
 For example:
 
@@ -82,7 +81,6 @@ jobs:
       with:
         modules: 'PSRule.Rules.CAF'   # Analyze objects using the rules within the PSRule.Rules.CAF PowerShell module.
         inputPath: 'out/templates/'   # Read objects from JSON files in 'out/templates/'.
-        prerelease: true              # Allow installation of pre-release module versions.
 ```
 
 ### Using with Azure Pipelines
@@ -90,11 +88,14 @@ jobs:
 The following example shows how to setup Azure Pipelines to validate templates pre-flight.
 
 1. Install [PSRule extension][extension] for Azure DevOps marketplace.
-2. See [Creating a YAML pipeline][create-pipeline].
-3. Install `PSRule.Rules.CAF` using `ps-rule-install` task.
-Set option `prerelease: true` to use a pre-release version.
-4. Export rule data from templates.
-5. Reference `ps-rule-assert` with `modules: 'PSRule.Rules.CAF'`.
+2. Create a new YAML pipeline with the _Starter pipeline_ template.
+3. Add the `Install PSRule module` task.
+   - Set module to `PSRule.Rules.CAF`.
+4. Export rule data from templates using PowerShell.
+5. Add the `PSRule analysis` task.
+   - Set input type to `Input Path`.
+   - Set input files to the location rule data is exported to.
+   - Set modules to `PSRule.Rules.CAF`.
 
 For example:
 
@@ -116,7 +117,6 @@ jobs:
     displayName: Install PSRule.Rules.CAF
     inputs:
       module: PSRule.Rules.CAF    # Install PSRule.Rules.CAF from the PowerShell Gallery.
-      prerelease: true            # Allow installation of pre-release module versions.
 
   # STEP 4: Export template data for analysis
   - powershell: Get-AzRuleTemplateLink | Export-AzTemplateRuleData -OutputPath out/templates/;
@@ -136,14 +136,14 @@ jobs:
 The following example shows how to setup PSRule locally to validate templates pre-flight.
 
 1. Install the `PSRule.Rules.CAF` module and dependencies from the PowerShell Gallery.
-2. Export rule data from templates.
+2. Export rule data from templates using PowerShell.
 3. Run analysis against exported data.
 
 For example:
 
 ```powershell
 # STEP 1: Install PSRule.Rules.CAF from the PowerShell Gallery
-Install-Module -Name 'PSRule.Rules.CAF' -Scope CurrentUser -AllowPrerelease;
+Install-Module -Name 'PSRule.Rules.CAF' -Scope CurrentUser;
 
 # STEP 2: Export template data for analysis
 Get-AzRuleTemplateLink | Export-AzTemplateRuleData -OutputPath out/templates/;
@@ -165,7 +165,7 @@ For example:
 
 ```powershell
 # STEP 1: Install PSRule.Rules.CAF from the PowerShell Gallery
-Install-Module -Name 'PSRule.Rules.CAF' -Scope CurrentUser -AllowPrerelease;
+Install-Module -Name 'PSRule.Rules.CAF' -Scope CurrentUser;
 
 # STEP 2: Authenticate to Azure, only required if not currently connected
 Connect-AzAccount;
