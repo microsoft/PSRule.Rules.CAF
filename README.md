@@ -72,7 +72,7 @@ jobs:
 
     # STEP 2: Export template data for analysis
     - name: Export templates
-      run: Install-Module PSRule.Rules.Azure -Force; Get-AzRuleTemplateLink | Export-AzTemplateRuleData -OutputPath out/templates/;
+      run: Install-Module PSRule.Rules.Azure -Force; Get-AzRuleTemplateLink | Export-AzTemplateRuleData -OutputPath 'out/templates/';
       shell: pwsh
 
     # STEP 3: Run analysis against exported data
@@ -116,10 +116,10 @@ jobs:
   - task: ps-rule-install@0
     displayName: Install PSRule.Rules.CAF
     inputs:
-      module: PSRule.Rules.CAF    # Install PSRule.Rules.CAF from the PowerShell Gallery.
+      module: 'PSRule.Rules.CAF'   # Install PSRule.Rules.CAF from the PowerShell Gallery.
 
   # STEP 4: Export template data for analysis
-  - powershell: Get-AzRuleTemplateLink | Export-AzTemplateRuleData -OutputPath out/templates/;
+  - powershell: Get-AzRuleTemplateLink | Export-AzTemplateRuleData -OutputPath 'out/templates/';
     displayName: 'Export template data'
 
   # STEP 5: Run analysis against exported data
@@ -127,8 +127,8 @@ jobs:
     displayName: Analyze Azure template files
     inputs:
       inputType: inputPath
-      inputPath: 'out/templates/'                # Read objects from JSON files in 'out/templates/'.
-      modules: 'PSRule.Rules.CAF'                # Analyze objects using the rules within the PSRule.Rules.CAF PowerShell module.
+      inputPath: 'out/templates/'   # Read objects from JSON files in 'out/templates/'.
+      modules: 'PSRule.Rules.CAF'   # Analyze objects using the rules within the PSRule.Rules.CAF PowerShell module.
 ```
 
 ### Using locally
@@ -146,10 +146,10 @@ For example:
 Install-Module -Name 'PSRule.Rules.CAF' -Scope CurrentUser;
 
 # STEP 2: Export template data for analysis
-Get-AzRuleTemplateLink | Export-AzTemplateRuleData -OutputPath out/templates/;
+Get-AzRuleTemplateLink | Export-AzTemplateRuleData -OutputPath 'out/templates/';
 
 # STEP 3: Run analysis against exported data
-Assert-PSRule -Module 'PSRule.Rules.CAF' -InputPath out/templates/;
+Assert-PSRule -Module 'PSRule.Rules.CAF' -InputPath 'out/templates/';
 ```
 
 ### Export in-flight resource data
@@ -174,10 +174,10 @@ Connect-AzAccount;
 Get-AzContext;
 
 # STEP 3: Exports a resource graph stored as JSON for analysis
-Export-AzRuleData;
+Export-AzRuleData -OutputPath 'out/templates/';
 
 # STEP 4: Run analysis against exported data
-Assert-PSRule -Module 'PSRule.Rules.CAF' -InputPath out/templates/;
+Assert-PSRule -Module 'PSRule.Rules.CAF' -InputPath 'out/templates/';
 ```
 
 ## Rule reference
