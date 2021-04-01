@@ -1,6 +1,7 @@
 
 ---
 # Synopsis: The default baseline for Azure Cloud Adoption Framework
+apiVersion: github.com/microsoft/PSRule/v1
 kind: Baseline
 metadata:
   name: CAF.Strict

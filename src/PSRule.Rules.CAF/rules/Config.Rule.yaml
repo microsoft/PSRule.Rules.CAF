@@ -1,6 +1,7 @@
 
 ---
 # Synopsis: Configuration for PSRule.Rules.CAF
+apiVersion: github.com/microsoft/PSRule/v1
 kind: ModuleConfig
 metadata:
   name: PSRule.Rules.CAF
