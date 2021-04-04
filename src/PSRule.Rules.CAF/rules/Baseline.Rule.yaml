@@ -93,6 +93,9 @@ spec:
     CAF_HDInsightsSparkPrefix: [ 'spark-' ]
     CAF_IoTHubPrefix: [ 'iot-' ]
     CAF_PowerBIEmbeddedPrefix: [ 'pbi-' ]
+    CAF_EventGridDomain: [ 'evgd-' ]
+    CAF_EventGridTopic: [ 'evgt-' ]
+    CAF_EventGridSystemTopic: [ 'evgt-' ]
 
     # Integration
     CAF_LogicAppsPrefix: [ 'logic-' ]

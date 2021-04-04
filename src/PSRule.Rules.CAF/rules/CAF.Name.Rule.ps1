@@ -3,8 +3,8 @@
 
 # Note:
 # This contains rules for standard naming suggested in the CAF.
-# https://docs.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/naming-and-tagging
-# https://docs.microsoft.com/en-us/azure/architecture/best-practices/resource-naming
+# https://docs.microsoft.com/azure/cloud-adoption-framework/ready/azure-best-practices/naming-and-tagging
+# https://docs.microsoft.com/azure/architecture/best-practices/resource-naming
 
 # Synopsis: Use standard resource groups names.
 Rule 'CAF.Name.RG' -Type 'Microsoft.Resources/resourceGroups' -If { !(CAF_IsManagedRG) } {
@@ -101,6 +101,47 @@ Rule 'CAF.Name.PublicIP' -Type 'Microsoft.Network/publicIPAddresses' {
 # Synopsis: Use standard load balancer names.
 Rule 'CAF.Name.LoadBalancer' -Type 'Microsoft.Network/loadBalancers' -If { !(CAF_IsManagedLB) } {
     $Assert.StartsWith($PSRule, 'TargetName', $Configuration.CAF_LoadBalancerPrefix, $True);
+    if ($Configuration.CAF_UseLowerNames -eq $True) {
+        $Assert.IsLower($PSRule, 'TargetName');
+    }
+}
+
+# Synopsis: Use standard cognitive search names.
+Rule 'CAF.Name.CognitiveSearch' -Type 'Microsoft.Search/searchServices' {
+    $Assert.StartsWith($PSRule, 'TargetName', $Configuration.CAF_SearchPrefix, $True);
+    if ($Configuration.CAF_UseLowerNames -eq $True) {
+        $Assert.IsLower($PSRule, 'TargetName');
+    }
+}
+
+# Synopsis: Use standard cognitive services names.
+Rule 'CAF.Name.CognitiveServices' -Type 'Microsoft.CognitiveServices/accounts' {
+    $Assert.StartsWith($PSRule, 'TargetName', $Configuration.CAF_CognitiveServicesPrefix, $True);
+    if ($Configuration.CAF_UseLowerNames -eq $True) {
+        $Assert.IsLower($PSRule, 'TargetName');
+    }
+}
+
+# Synopsis: Use standard Event Grid Domain names.
+Rule 'CAF.Name.EventGridDomain' -Type 'Microsoft.EventGrid/domains' {
+    $Assert.StartsWith($PSRule, 'TargetName', $Configuration.CAF_EventGridDomain, $True);
+    if ($Configuration.CAF_UseLowerNames -eq $True) {
+        $Assert.IsLower($PSRule, 'TargetName');
+    }
+}
+
+# Synopsis: Use standard Event Grid Topic names.
+Rule 'CAF.Name.EventGridTopic' -Type 'Microsoft.EventGrid/topics', 'Microsoft.EventGrid/domains/topics' {
+    $name = $PSRule.TargetName.Split('/')[-1];
+    $Assert.StartsWith($name, '.', $Configuration.CAF_EventGridTopic, $True);
+    if ($Configuration.CAF_UseLowerNames -eq $True) {
+        $Assert.IsLower($name, '.');
+    }
+}
+
+# Synopsis: Use standard Event Grid System Topic names.
+Rule 'CAF.Name.EventGridSystemTopic' -Type 'Microsoft.EventGrid/systemTopics' {
+    $Assert.StartsWith($PSRule, 'TargetName', $Configuration.CAF_EventGridSystemTopic, $True);
     if ($Configuration.CAF_UseLowerNames -eq $True) {
         $Assert.IsLower($PSRule, 'TargetName');
     }
