@@ -442,4 +442,179 @@ Describe 'CAF.Name' -Tag 'name' {
             }
         }
     }
+
+    Context 'CAF.Name.CognitiveSearch' {
+        $validNames = @(
+            'srch-test-001'
+        )
+        $invalidNames = @(
+            'srch-Test-001'
+            'srchtest001'
+            'test-srch-001'
+        )
+        $testObject = [PSCustomObject]@{
+            Name = ''
+            ResourceType = 'Microsoft.Search/searchServices'
+        }
+
+        # Pass
+        foreach ($name in $validNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.CognitiveSearch';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Pass';
+            }
+        }
+
+        # Fail
+        foreach ($name in $invalidNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.CognitiveSearch';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Fail';
+            }
+        }
+    }
+
+    Context 'CAF.Name.CognitiveServices' {
+        $validNames = @(
+            'cog-test-001'
+        )
+        $invalidNames = @(
+            'cog-Test-001'
+            'cogtest001'
+            'test-cog-001'
+        )
+        $testObject = [PSCustomObject]@{
+            Name = ''
+            ResourceType = 'Microsoft.CognitiveServices/accounts'
+        }
+
+        # Pass
+        foreach ($name in $validNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.CognitiveServices';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Pass';
+            }
+        }
+
+        # Fail
+        foreach ($name in $invalidNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.CognitiveServices';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Fail';
+            }
+        }
+    }
+
+    Context 'CAF.Name.EventGridDomain' {
+        $validNames = @(
+            'evgd-test-001'
+        )
+        $invalidNames = @(
+            'evgd-Test-001'
+            'evgdtest001'
+            'test-evgd-001'
+        )
+        $testObject = [PSCustomObject]@{
+            Name = ''
+            ResourceType = 'Microsoft.EventGrid/domains'
+        }
+
+        # Pass
+        foreach ($name in $validNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.EventGridDomain';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Pass';
+            }
+        }
+
+        # Fail
+        foreach ($name in $invalidNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.EventGridDomain';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Fail';
+            }
+        }
+    }
+
+    Context 'CAF.Name.EventGridTopic' {
+        $validNames = @(
+            'evgt-test-001'
+        )
+        $invalidNames = @(
+            'evgt-Test-001'
+            'evgttest001'
+            'test-evgt-001'
+        )
+        $testObject = [PSCustomObject]@{
+            Name = ''
+            ResourceType = 'Microsoft.EventGrid/topics'
+        }
+
+        # Pass
+        foreach ($name in $validNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.EventGridTopic';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Pass';
+            }
+        }
+
+        # Fail
+        foreach ($name in $invalidNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.EventGridTopic';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Fail';
+            }
+        }
+    }
+
+    Context 'CAF.Name.EventGridSystemTopic' {
+        $validNames = @(
+            'evgt-test-001'
+        )
+        $invalidNames = @(
+            'evgt-Test-001'
+            'evgttest001'
+            'test-evgt-001'
+        )
+        $testObject = [PSCustomObject]@{
+            Name = ''
+            ResourceType = 'Microsoft.EventGrid/systemTopics'
+        }
+
+        # Pass
+        foreach ($name in $validNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.EventGridSystemTopic';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Pass';
+            }
+        }
+
+        # Fail
+        foreach ($name in $invalidNames) {
+            It $name {
+                $testObject.Name = $name;
+                $ruleResult = $testObject | Invoke-PSRule @invokeParams -Name 'CAF.Name.EventGridSystemTopic';
+                $ruleResult | Should -Not -BeNullOrEmpty;
+                $ruleResult.Outcome | Should -Be 'Fail';
+            }
+        }
+    }
 }
