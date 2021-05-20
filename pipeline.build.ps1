@@ -108,10 +108,10 @@ task VersionModule ModuleDependencies, {
     $manifest = Test-ModuleManifest -Path $manifestPath;
     $requiredModules = $manifest.RequiredModules | ForEach-Object -Process {
         if ($_.Name -eq 'PSRule' -and $Configuration -eq 'Release') {
-            @{ ModuleName = 'PSRule'; ModuleVersion = '1.2.0' }
+            @{ ModuleName = 'PSRule'; ModuleVersion = '1.3.0' }
         }
         elseif ($_.Name -eq 'PSRule.Rules.Azure' -and $Configuration -eq 'Release') {
-            @{ ModuleName = 'PSRule.Rules.Azure'; ModuleVersion = '1.2.0' }
+            @{ ModuleName = 'PSRule.Rules.Azure'; ModuleVersion = '1.3.2' }
         }
         else {
             @{ ModuleName = $_.Name; ModuleVersion = $_.Version }
@@ -161,11 +161,14 @@ task PSScriptAnalyzer NuGet, {
 
 # Synopsis: Install PSRule
 task PSRule NuGet, {
-    if ($Null -eq (Get-InstalledModule -Name PSRule -MinimumVersion 1.2.0 -ErrorAction Ignore)) {
-        Install-Module -Name PSRule -Repository PSGallery -MinimumVersion 1.2.0 -Scope CurrentUser -Force;
+    if ($Null -eq (Get-InstalledModule -Name PSRule -MinimumVersion 1.3.0 -ErrorAction Ignore)) {
+        Install-Module -Name PSRule -Repository PSGallery -MinimumVersion 1.3.0 -Scope CurrentUser -Force;
     }
-    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.Azure -MinimumVersion 1.2.0 -ErrorAction Ignore)) {
-        Install-Module -Name PSRule.Rules.Azure -Repository PSGallery -MinimumVersion 1.2.0 -Scope CurrentUser -Force;
+    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.Azure -MinimumVersion 1.3.2 -ErrorAction Ignore)) {
+        Install-Module -Name PSRule.Rules.Azure -Repository PSGallery -MinimumVersion 1.3.2 -Scope CurrentUser -Force;
+    }
+    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.MSFT.OSS -MinimumVersion 0.1.0 -ErrorAction Ignore)) {
+        Install-Module -Name PSRule.Rules.MSFT.OSS -Repository PSGallery -MinimumVersion 0.1.0 -Scope CurrentUser -Force;
     }
     Import-Module -Name PSRule.Rules.Azure -Verbose:$False;
 }
@@ -227,9 +230,10 @@ task Rules PSRule, {
         Style = $AssertStyle
         OutputFormat = 'NUnit3'
         ErrorAction = 'Stop'
+        As = 'Summary'
     }
     Import-Module (Join-Path -Path $PWD -ChildPath out/modules/PSRule.Rules.CAF) -Force;
-    Assert-PSRule @assertParams -InputPath $PWD -Format File -OutputPath reports/ps-rule-file.xml;
+    Assert-PSRule @assertParams -Module PSRule.Rules.MSFT.OSS -InputPath $PWD -Format File -OutputPath reports/ps-rule-file.xml;
 
     $rules = Get-PSRule -Module PSRule.Rules.CAF;
     $rules | Assert-PSRule @assertParams -OutputPath reports/ps-rule-file2.xml;
