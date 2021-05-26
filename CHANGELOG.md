@@ -2,6 +2,25 @@
 
 ## Unreleased
 
+## v0.2.0
+
+What's changed since v0.1.0:
+
+- New rules:
+  - Resource naming:
+    - Check that Cognitive Search services use a standard name prefix `srch-`. [#64](https://github.com/microsoft/PSRule.Rules.CAF/issues/64)
+    - Check that Cognitive Services accounts use a standard name prefix `cog-`. [#65](https://github.com/microsoft/PSRule.Rules.CAF/issues/65)
+    - Check that EventGrid Domains use a standard name prefix `evgd-`. [#63](https://github.com/microsoft/PSRule.Rules.CAF/issues/63)
+    - Check that EventGrid Topics use a standard name prefix `evgt-`. [#63](https://github.com/microsoft/PSRule.Rules.CAF/issues/63)
+    - Check that EventGrid System Topics use a standard name prefix `evgt-`. [#63](https://github.com/microsoft/PSRule.Rules.CAF/issues/63)
+- Engineering:
+  - Bump PSRule dependency to v1.3.0. [#69](https://github.com/microsoft/PSRule.Rules.CAF/issues/69)
+  - Bump PSRule.Rules.Azure dependency to v1.3.2. [#69](https://github.com/microsoft/PSRule.Rules.CAF/issues/69)
+
+What's changed since pre-release v0.2.0-B2105004:
+
+- No additional changes.
+
 ## v0.2.0-B2105004 (pre-release)
 
 What's changed since pre-release v0.2.0-B2104002:
