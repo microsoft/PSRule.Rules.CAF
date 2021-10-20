@@ -4,6 +4,15 @@ input:
   pathIgnore:
   - '.vscode/'
   - '*.md'
+  - '*.Designer.cs'
+  - '*.resx'
+  - '*.sln'
+  - '*.txt'
+  - '*.html'
+  - '*.ico'
+
+include:
+  path: []
 
 output:
   culture:
