@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+What's changed since v0.2.0:
+
+- General improvements:
+  - Updated default baseline to use module configuration. [#79](https://github.com/microsoft/PSRule.Rules.CAF/issues/79)
+- Engineering:
+  - Bump PSRule dependency to v1.9.0. [#77](https://github.com/microsoft/PSRule.Rules.CAF/issues/77)
+  - Bump PSRule.Rules.Azure dependency to v1.9.1. [#78](https://github.com/microsoft/PSRule.Rules.CAF/issues/78)
+
 ## v0.2.0
 
 What's changed since v0.1.0:

@@ -1,3 +1,5 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
 
 ---
 # Synopsis: Configuration for PSRule.Rules.CAF
@@ -17,3 +19,5 @@ spec:
       resourceId: [ 'ResourceId' ]
       subscriptionId: [ 'SubscriptionId' ]
       resourceGroupName: [ 'ResourceGroupName' ]
+  rule:
+    baseline: 'CAF.Strict'

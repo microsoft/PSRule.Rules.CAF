@@ -5,6 +5,9 @@
 # Please see the documentation for all configuration options:
 # https://microsoft.github.io/PSRule/
 
+requires:
+  PSRule: '@pre >=1.9.0'
+
 input:
   pathIgnore:
   - '.vscode/'
@@ -22,3 +25,8 @@ include:
 output:
   culture:
   - en-US
+
+configuration:
+  # Authoring rules
+  # RULE_AUTHORING_ONLINE_HELP: 'https://azure.github.io/PSRule.Rules.CAF/en/rules/'
+  RULE_AUTHORING_PREFIX: 'CAF'

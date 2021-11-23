@@ -124,7 +124,7 @@ stages:
   - template: jobs/test.yaml
     parameters:
       name: windows_2019
-      displayName: 'PowerShell 7.1 - Windows 2019'
+      displayName: 'PowerShell 5.1 - Windows 2019'
       imageName: 'windows-2019'
       pwsh: 'false'
 

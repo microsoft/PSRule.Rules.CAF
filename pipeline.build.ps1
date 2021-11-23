@@ -108,19 +108,16 @@ task VersionModule ModuleDependencies, {
     $manifest = Test-ModuleManifest -Path $manifestPath;
     $requiredModules = $manifest.RequiredModules | ForEach-Object -Process {
         if ($_.Name -eq 'PSRule' -and $Configuration -eq 'Release') {
-            @{ ModuleName = 'PSRule'; ModuleVersion = '1.3.0' }
+            @{ ModuleName = 'PSRule'; ModuleVersion = '1.9.0' }
         }
         elseif ($_.Name -eq 'PSRule.Rules.Azure' -and $Configuration -eq 'Release') {
-            @{ ModuleName = 'PSRule.Rules.Azure'; ModuleVersion = '1.3.2' }
+            @{ ModuleName = 'PSRule.Rules.Azure'; ModuleVersion = '1.9.1' }
         }
         else {
             @{ ModuleName = $_.Name; ModuleVersion = $_.Version }
         }
     };
     Update-ModuleManifest -Path $manifestPath -RequiredModules $requiredModules;
-    $manifestContent = Get-Content -Path $manifestPath -Raw;
-    $manifestContent = $manifestContent -replace 'PSRule = ''System.Collections.Hashtable''', 'PSRule = @{ Baseline = ''CAF.Strict'' }';
-    $manifestContent | Set-Content -Path $manifestPath;
 }
 
 # Synopsis: Publish to PowerShell Gallery
@@ -161,11 +158,11 @@ task PSScriptAnalyzer NuGet, {
 
 # Synopsis: Install PSRule
 task PSRule NuGet, {
-    if ($Null -eq (Get-InstalledModule -Name PSRule -MinimumVersion 1.3.0 -ErrorAction Ignore)) {
-        Install-Module -Name PSRule -Repository PSGallery -MinimumVersion 1.3.0 -Scope CurrentUser -Force;
+    if ($Null -eq (Get-InstalledModule -Name PSRule -MinimumVersion 1.9.0 -ErrorAction Ignore)) {
+        Install-Module -Name PSRule -Repository PSGallery -MinimumVersion 1.9.0 -Scope CurrentUser -Force;
     }
-    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.Azure -MinimumVersion 1.3.2 -ErrorAction Ignore)) {
-        Install-Module -Name PSRule.Rules.Azure -Repository PSGallery -MinimumVersion 1.3.2 -Scope CurrentUser -Force;
+    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.Azure -MinimumVersion 1.9.1 -ErrorAction Ignore)) {
+        Install-Module -Name PSRule.Rules.Azure -Repository PSGallery -MinimumVersion 1.9.1 -Scope CurrentUser -Force;
     }
     if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.MSFT.OSS -MinimumVersion 0.1.0 -ErrorAction Ignore)) {
         Install-Module -Name PSRule.Rules.MSFT.OSS -Repository PSGallery -MinimumVersion 0.1.0 -Scope CurrentUser -Force;

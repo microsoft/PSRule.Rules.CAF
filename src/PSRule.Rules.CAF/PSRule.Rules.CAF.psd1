@@ -110,9 +110,6 @@ PrivateData = @{
         # ReleaseNotes of this module
         ReleaseNotes = 'https://github.com/Microsoft/PSRule.Rules.CAF/blob/main/CHANGELOG.md'
     } # End of PSData hashtable
-    PSRule = @{
-        Baseline = 'CAF.Strict'
-    }
 } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
