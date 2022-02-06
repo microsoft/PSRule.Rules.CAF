@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "PSRule": {
+      "version": "1.9.0"
+    },
+    "PSRule.Rules.Azure": {
+      "version": "1.9.1"
+    }
+  },
+  "devDependencies": {
+    "Pester": {
+      "version": "5.3.1"
+    },
+    "platyPS": {
+      "version": "0.14.2"
+    },
+    "PSDocs": {
+      "version": "0.9.0"
+    },
+    "PSScriptAnalyzer": {
+      "version": "1.20.0"
+    }
+  }
+}

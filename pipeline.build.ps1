@@ -19,7 +19,10 @@ param (
     [String]$ArtifactPath = (Join-Path -Path $PWD -ChildPath out/modules),
 
     [Parameter(Mandatory = $False)]
-    [String]$AssertStyle = 'AzurePipelines'
+    [String]$AssertStyle = 'AzurePipelines',
+
+    [Parameter(Mandatory = $False)]
+    [String]$TestGroup = $Null
 )
 
 Write-Host -Object "[Pipeline] -- PowerShell: v$($PSVersionTable.PSVersion.ToString())" -ForegroundColor Green;
@@ -32,6 +35,11 @@ Write-Host -Object "[Pipeline] -- Culture: $((Get-Culture).Name), $((Get-Culture
 
 if ($Env:SYSTEM_DEBUG -eq 'true') {
     $VerbosePreference = 'Continue';
+}
+
+$forcePublish = $False;
+if ($Env:FORCE_PUBLISH -eq 'true') {
+    $forcePublish = $True;
 }
 
 if ($Env:BUILD_SOURCEBRANCH -like '*/tags/*' -and $Env:BUILD_SOURCEBRANCHNAME -like 'v0.*') {
@@ -105,13 +113,14 @@ task VersionModule ModuleDependencies, {
         }
     }
 
+    $dependencies = Get-Content -Path $PWD/modules.json -Raw | ConvertFrom-Json;
     $manifest = Test-ModuleManifest -Path $manifestPath;
     $requiredModules = $manifest.RequiredModules | ForEach-Object -Process {
         if ($_.Name -eq 'PSRule' -and $Configuration -eq 'Release') {
-            @{ ModuleName = 'PSRule'; ModuleVersion = '1.9.0' }
+            @{ ModuleName = 'PSRule'; ModuleVersion = $dependencies.dependencies.PSRule.version }
         }
         elseif ($_.Name -eq 'PSRule.Rules.Azure' -and $Configuration -eq 'Release') {
-            @{ ModuleName = 'PSRule.Rules.Azure'; ModuleVersion = '1.9.1' }
+            @{ ModuleName = 'PSRule.Rules.Azure'; ModuleVersion = $dependencies.dependencies.'PSRule.Rules.Azure'.version }
         }
         else {
             @{ ModuleName = $_.Name; ModuleVersion = $_.Version }
@@ -129,7 +138,7 @@ task ReleaseModule VersionModule, {
         Write-Error -Message "[ReleaseModule] -- Module path does not exist";
     }
     elseif (![String]::IsNullOrEmpty($ApiKey)) {
-        Publish-Module -Path $modulePath -NuGetApiKey $ApiKey;
+        Publish-Module -Path $modulePath -NuGetApiKey $ApiKey -Force:$forcePublish;
     }
 }
 
@@ -140,53 +149,8 @@ task NuGet {
     }
 }
 
-# Synopsis: Install Pester module
-task Pester NuGet, {
-    if ($Null -eq (Get-InstalledModule -Name Pester -RequiredVersion 4.10.1 -ErrorAction Ignore)) {
-        Install-Module -Name Pester -RequiredVersion 4.10.1 -Scope CurrentUser -Force -SkipPublisherCheck;
-    }
-    Import-Module -Name Pester -RequiredVersion 4.10.1 -Verbose:$False;
-}
-
-# Synopsis: Install PSScriptAnalyzer module
-task PSScriptAnalyzer NuGet, {
-    if ($Null -eq (Get-InstalledModule -Name PSScriptAnalyzer -MinimumVersion 1.18.3 -ErrorAction Ignore)) {
-        Install-Module -Name PSScriptAnalyzer -MinimumVersion 1.18.3 -Scope CurrentUser -Force;
-    }
-    Import-Module -Name PSScriptAnalyzer -Verbose:$False;
-}
-
-# Synopsis: Install PSRule
-task PSRule NuGet, {
-    if ($Null -eq (Get-InstalledModule -Name PSRule -MinimumVersion 1.9.0 -ErrorAction Ignore)) {
-        Install-Module -Name PSRule -Repository PSGallery -MinimumVersion 1.9.0 -Scope CurrentUser -Force;
-    }
-    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.Azure -MinimumVersion 1.9.1 -ErrorAction Ignore)) {
-        Install-Module -Name PSRule.Rules.Azure -Repository PSGallery -MinimumVersion 1.9.1 -Scope CurrentUser -Force;
-    }
-    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.MSFT.OSS -MinimumVersion 0.1.0 -ErrorAction Ignore)) {
-        Install-Module -Name PSRule.Rules.MSFT.OSS -Repository PSGallery -MinimumVersion 0.1.0 -Scope CurrentUser -Force;
-    }
-    Import-Module -Name PSRule.Rules.Azure -Verbose:$False;
-}
-
-# Synopsis: Install PSDocs
-task PSDocs NuGet, {
-    if ($Null -eq (Get-InstalledModule -Name PSDocs -MinimumVersion 0.8.0 -ErrorAction Ignore)) {
-        Install-Module -Name PSDocs -Repository PSGallery -MinimumVersion 0.8.0 -Scope CurrentUser -Force;
-    }
-    Import-Module -Name PSDocs -Verbose:$False;
-}
-
-# Synopsis: Install PlatyPS module
-task platyPS {
-    if ($Null -eq (Get-InstalledModule -Name PlatyPS -MinimumVersion 0.14.0 -ErrorAction Ignore)) {
-        Install-Module -Name PlatyPS -Scope CurrentUser -MinimumVersion 0.14.0 -Force;
-    }
-}
-
 # Synopsis: Install module dependencies
-task ModuleDependencies NuGet, PSRule, {
+task ModuleDependencies NuGet, Dependencies, {
 }
 
 task CopyModule {
@@ -196,20 +160,42 @@ task CopyModule {
 # Synopsis: Build modules only
 task BuildModule CopyModule
 
-task TestModule PSRule, Pester, PSScriptAnalyzer, {
+task TestModule ModuleDependencies, {
     # Run Pester tests
-    $pesterParams = @{ Path = (Join-Path -Path $PWD -ChildPath tests/PSRule.Rules.CAF.Tests); OutputFile = 'reports/pester-unit.xml'; OutputFormat = 'NUnitXml'; PesterOption = @{ IncludeVSCodeMarker = $True }; PassThru = $True; };
+    $pesterOptions = @{
+        Run = @{
+            Path = (Join-Path -Path $PWD -ChildPath tests/PSRule.Rules.CAF.Tests);
+            PassThru = $True;
+        };
+        TestResult = @{
+            Enabled = $True;
+            OutputFormat = 'NUnitXml';
+            OutputPath = 'reports/pester-unit.xml';
+        };
+    };
 
     if ($CodeCoverage) {
-        $pesterParams.Add('CodeCoverage', (Join-Path -Path $PWD -ChildPath 'out/modules/**/*.psm1'));
-        $pesterParams.Add('CodeCoverageOutputFile', (Join-Path -Path $PWD -ChildPath reports/pester-coverage.xml));
+        $codeCoverageOptions = @{
+            Enabled = $True;
+            OutputPath = (Join-Path -Path $PWD -ChildPath 'reports/pester-coverage.xml');
+            Path = (Join-Path -Path $PWD -ChildPath 'out/modules/**/*.psm1');
+        };
+
+        $pesterOptions.Add('CodeCoverage', $codeCoverageOptions);
     }
 
     if (!(Test-Path -Path reports)) {
         $Null = New-Item -Path reports -ItemType Directory -Force;
     }
 
-    $results = Invoke-Pester @pesterParams;
+    if ($Null -ne $TestGroup) {
+        $pesterOptions.Add('Filter', @{ Tag = $TestGroup });
+    }
+
+    # https://pester.dev/docs/commands/New-PesterConfiguration
+    $pesterConfiguration = New-PesterConfiguration -Hashtable $pesterOptions;
+
+    $results = Invoke-Pester -Configuration $pesterConfiguration;
 
     # Throw an error if pester tests failed
     if ($Null -eq $results) {
@@ -221,7 +207,7 @@ task TestModule PSRule, Pester, PSScriptAnalyzer, {
 }
 
 # Synopsis: Run validation
-task Rules PSRule, {
+task Rules Dependencies, {
     $assertParams = @{
         Path = './.ps-rule/'
         Style = $AssertStyle
@@ -237,12 +223,12 @@ task Rules PSRule, {
 }
 
 # Synopsis: Run script analyzer
-task Analyze Build, PSScriptAnalyzer, {
+task Analyze Build, Dependencies, {
     Invoke-ScriptAnalyzer -Path out/modules/PSRule.Rules.CAF;
 }
 
 # Synopsis: Build table of content for rules and baselines
-task BuildRuleDocs Build, PSRule, PSDocs, {
+task BuildRuleDocs Build, Dependencies, {
     Import-Module (Join-Path -Path $PWD -ChildPath out/modules/PSRule.Rules.CAF) -Force;
     $Null = Invoke-PSDocument -Name module -OutputPath .\docs\rules\en\ -Path .\RuleToc.Doc.ps1;
 
@@ -255,7 +241,7 @@ task BuildRuleDocs Build, PSRule, PSDocs, {
 }
 
 # Synopsis: Build help
-task BuildHelp BuildModule, PlatyPS, {
+task BuildHelp BuildModule, Dependencies, {
     if (!(Test-Path out/modules/PSRule.Rules.CAF/en/)) {
         $Null = New-Item -Path out/modules/PSRule.Rules.CAF/en/ -ItemType Directory -Force;
     }
@@ -267,6 +253,11 @@ task BuildHelp BuildModule, PlatyPS, {
 task ScaffoldHelp Build, BuildRuleDocs, {
     # Import-Module (Join-Path -Path $PWD -ChildPath out/modules/PSRule.Rules.CAF) -Force;
     # Update-MarkdownHelp -Path '.\docs\commands\PSRule.Rules.CAF\en-US';
+}
+
+task Dependencies NuGet, {
+    Import-Module $PWD/scripts/dependencies.psm1;
+    Install-Dependencies -Path $PWD/modules.json;
 }
 
 # Synopsis: Add shipit build tag
