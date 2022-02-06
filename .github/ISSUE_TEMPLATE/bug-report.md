@@ -30,7 +30,7 @@ Steps to reproduce the issue:
 **Module in use and version:**
 
 - Module: PSRule.Rules.CAF
-- Version: **[e.g. 0.1.0]**
+- Version: **[e.g. 0.3.0]**
 
 Captured output from `$PSVersionTable`:
 
