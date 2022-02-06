@@ -8,73 +8,77 @@
 [CmdletBinding()]
 param ()
 
-# Setup error handling
-$ErrorActionPreference = 'Stop';
-Set-StrictMode -Version latest;
+BeforeAll {
+    # Setup error handling
+    $ErrorActionPreference = 'Stop';
+    Set-StrictMode -Version latest;
 
-if ($Env:SYSTEM_DEBUG -eq 'true') {
-    $VerbosePreference = 'Continue';
+    if ($Env:SYSTEM_DEBUG -eq 'true') {
+        $VerbosePreference = 'Continue';
+    }
+
+    # Setup tests paths
+    $rootPath = $PWD;
+    Import-Module (Join-Path -Path $rootPath -ChildPath out/modules/PSRule.Rules.CAF) -Force;
 }
-
-# Setup tests paths
-$rootPath = $PWD;
-Import-Module (Join-Path -Path $rootPath -ChildPath out/modules/PSRule.Rules.CAF) -Force;
 
 Describe 'CAF.Tag' -Tag 'tag' {
     Context 'Conditions' {
-        $invokeParams = @{
-            Module = 'PSRule.Rules.CAF'
-            WarningAction = 'Ignore'
-            ErrorAction = 'Stop'
+        BeforeAll {
+            $invokeParams = @{
+                Module = 'PSRule.Rules.CAF'
+                WarningAction = 'Ignore'
+                ErrorAction = 'Stop'
+            }
+            $testObject = @(
+                @{
+                    Name = 'rg-A'
+                    ResourceType = 'Microsoft.Resources/resourceGroups'
+                    Tags = @{
+                        Env = 'Prod'
+                        OtherTag = 'Value1'
+                        Environment = 'Prod'
+                    }
+                }
+                @{
+                    Name = 'rg-B'
+                    ResourceType = 'Microsoft.Resources/resourceGroups'
+                }
+                @{
+                    Name = 'rg-C'
+                    ResourceType = 'Microsoft.Resources/resourceGroups'
+                    Tags = @{
+                        OtherTag = 'Value1'
+                        Environment = 'Production'
+                    }
+                }
+                @{
+                    Name = 'GatewaySubnet'
+                    Type = 'Microsoft.Network/virtualNetworks/subnets'
+                }
+                @{
+                    Name = 'vnet-A'
+                    Type = 'Microsoft.Network/virtualNetworks'
+                    tags = @{
+                        Env = 'Prod'
+                    }
+                },
+                @{
+                    Name = 'vnet-B'
+                    Type = 'Microsoft.Network/virtualNetworks'
+                    Tags = @{
+                        Environment = 'Prod'
+                    }
+                },
+                @{
+                    Name = 'vnet-C'
+                    Type = 'Microsoft.Network/virtualNetworks'
+                    Tags = @{
+                        env = 'prod'
+                    }
+                }
+            )
         }
-        $testObject = @(
-            @{
-                Name = 'rg-A'
-                ResourceType = 'Microsoft.Resources/resourceGroups'
-                Tags = @{
-                    Env = 'Prod'
-                    OtherTag = 'Value1'
-                    Environment = 'Prod'
-                }
-            }
-            @{
-                Name = 'rg-B'
-                ResourceType = 'Microsoft.Resources/resourceGroups'
-            }
-            @{
-                Name = 'rg-C'
-                ResourceType = 'Microsoft.Resources/resourceGroups'
-                Tags = @{
-                    OtherTag = 'Value1'
-                    Environment = 'Production'
-                }
-            }
-            @{
-                Name = 'GatewaySubnet'
-                Type = 'Microsoft.Network/virtualNetworks/subnets'
-            }
-            @{
-                Name = 'vnet-A'
-                Type = 'Microsoft.Network/virtualNetworks'
-                tags = @{
-                    Env = 'Prod'
-                }
-            },
-            @{
-                Name = 'vnet-B'
-                Type = 'Microsoft.Network/virtualNetworks'
-                Tags = @{
-                    Environment = 'Prod'
-                }
-            },
-            @{
-                Name = 'vnet-C'
-                Type = 'Microsoft.Network/virtualNetworks'
-                Tags = @{
-                    env = 'prod'
-                }
-            }
-        )
 
         It 'CAF.Tag.Resource' {
             # Not set
