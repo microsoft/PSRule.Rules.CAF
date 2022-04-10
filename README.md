@@ -47,10 +47,10 @@ For additional details see the [FAQ](docs/features.md#frequently-asked-questions
 The following example shows how to setup Github Actions to validate templates pre-flight.
 
 1. See [Creating a workflow file][create-workflow].
-2. Export rule data from templates using PowerShell.
-3. Reference `Microsoft/ps-rule` with `modules: 'PSRule.Rules.CAF'`.
+2. Reference `microsoft/ps-rule` with `modules: 'PSRule.Rules.CAF'`.
+3. Create and configure `ps-rule.yaml` in the repository root directory.
 
-For example:
+Example workflow:
 
 ```yaml
 # Example: .github/workflows/analyze-arm.yaml
@@ -68,19 +68,44 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
-    # STEP 2: Export template data for analysis
-    - name: Export templates
-      run: Install-Module PSRule.Rules.Azure -Force; Get-AzRuleTemplateLink | Export-AzTemplateRuleData -OutputPath 'out/templates/';
-      shell: pwsh
-
-    # STEP 3: Run analysis against exported data
-    - name: Analyze Azure template files
-      uses: Microsoft/ps-rule@main
+    # STEP 3: Run analysis against PSRule for Cloud Adoption Framework
+    - name: Test Azure Infrastructure as Code
+      uses: microsoft/ps-rule@v2.0.0
       with:
-        modules: 'PSRule.Rules.CAF'   # Analyze objects using the rules within the PSRule.Rules.CAF PowerShell module.
-        inputPath: 'out/templates/'   # Read objects from JSON files in 'out/templates/'.
+        modules: 'PSRule.Rules.CAF'
+```
+
+Example PSRule options:
+
+```yaml
+# Example: ps-rule.yaml
+
+#
+# PSRule configuration
+#
+
+# Please see the documentation for all configuration options:
+# https://aka.ms/ps-rule/options
+
+include:
+  module:
+  - PSRule.Rules.CAF
+
+requires:
+  PSRule.Rules.CAF: '>=0.3.0'
+
+output:
+  culture:
+  - en-US
+
+configuration:
+  # Enable expansion for Bicep source files.
+  AZURE_BICEP_FILE_EXPANSION: true
+
+  # Enable expansion for template expansion.
+  AZURE_PARAMETER_FILE_EXPANSION: true
 ```
 
 ### Using with Azure Pipelines
@@ -89,18 +114,14 @@ The following example shows how to setup Azure Pipelines to validate templates p
 
 1. Install [PSRule extension][extension] for Azure DevOps marketplace.
 2. Create a new YAML pipeline with the _Starter pipeline_ template.
-3. Add the `Install PSRule module` task.
-   - Set module to `PSRule.Rules.CAF`.
-4. Export rule data from templates using PowerShell.
-5. Add the `PSRule analysis` task.
-   - Set input type to `Input Path`.
-   - Set input files to the location rule data is exported to.
-   - Set modules to `PSRule.Rules.CAF`.
+3. Add the `PSRule analysis` task.
+   - Set `modules` to `PSRule.Rules.CAF`.
+4. Create and configure `ps-rule.yaml` in the repository root directory.
 
-For example:
+Example pipeline:
 
 ```yaml
-# Example: .azure-pipelines/analyze-arm.yaml
+# Example: .pipelines/analyze-arm.yaml
 
 #
 # STEP 2: Template validation
@@ -109,26 +130,45 @@ jobs:
 - job: 'analyze_arm'
   displayName: 'Analyze templates'
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'ubuntu-20.04'
   steps:
 
-  # STEP 3: Install PSRule.Rules.CAF from the PowerShell Gallery
-  - task: ps-rule-install@0
-    displayName: Install PSRule.Rules.CAF
+  # STEP 3: Run analysis against PSRule for Cloud Adoption Framework
+  - task: ps-rule-assert@1
+    displayName: Test Azure Infrastructure as Code
     inputs:
-      module: 'PSRule.Rules.CAF'   # Install PSRule.Rules.CAF from the PowerShell Gallery.
+      modules: 'PSRule.Rules.CAF'
+```
 
-  # STEP 4: Export template data for analysis
-  - powershell: Get-AzRuleTemplateLink | Export-AzTemplateRuleData -OutputPath 'out/templates/';
-    displayName: 'Export template data'
+Example PSRule options:
 
-  # STEP 5: Run analysis against exported data
-  - task: ps-rule-assert@0
-    displayName: Analyze Azure template files
-    inputs:
-      inputType: inputPath
-      inputPath: 'out/templates/'   # Read objects from JSON files in 'out/templates/'.
-      modules: 'PSRule.Rules.CAF'   # Analyze objects using the rules within the PSRule.Rules.CAF PowerShell module.
+```yaml
+# Example: ps-rule.yaml
+
+#
+# PSRule configuration
+#
+
+# Please see the documentation for all configuration options:
+# https://aka.ms/ps-rule/options
+
+include:
+  module:
+  - PSRule.Rules.CAF
+
+requires:
+  PSRule.Rules.CAF: '>=0.3.0'
+
+output:
+  culture:
+  - en-US
+
+configuration:
+  # Enable expansion for Bicep source files.
+  AZURE_BICEP_FILE_EXPANSION: true
+
+  # Enable expansion for template expansion.
+  AZURE_PARAMETER_FILE_EXPANSION: true
 ```
 
 ### Using locally
@@ -136,21 +176,63 @@ jobs:
 The following example shows how to setup PSRule locally to validate templates pre-flight.
 
 1. Install the `PSRule.Rules.CAF` module and dependencies from the PowerShell Gallery.
-2. Export rule data from templates using PowerShell.
-3. Run analysis against exported data.
+2. Create and configure `ps-rule.yaml` in the repository root directory.
+3. Run analysis against PSRule for Cloud Adoption Framework.
 
-For example:
+Example install command-line:
 
 ```powershell
-# STEP 1: Install PSRule.Rules.CAF from the PowerShell Gallery
-Install-Module -Name 'PSRule.Rules.CAF' -Scope CurrentUser;
-
-# STEP 2: Export template data for analysis
-Get-AzRuleTemplateLink | Export-AzTemplateRuleData -OutputPath 'out/templates/';
-
-# STEP 3: Run analysis against exported data
-Assert-PSRule -Module 'PSRule.Rules.CAF' -InputPath 'out/templates/';
+# STEP 1: Install from the PowerShell Gallery
+Install-Module -Name 'PSRule.Rules.CAF' -Scope CurrentUser -Repository PSGallery;
 ```
+
+Example PSRule options:
+
+```yaml
+# Example: ps-rule.yaml
+
+#
+# PSRule configuration
+#
+
+# Please see the documentation for all configuration options:
+# https://aka.ms/ps-rule/options
+
+include:
+  module:
+  - PSRule.Rules.CAF
+
+requires:
+  PSRule.Rules.CAF: '>=0.3.0'
+
+output:
+  culture:
+  - en-US
+
+configuration:
+  # Enable expansion for Bicep source files.
+  AZURE_BICEP_FILE_EXPANSION: true
+
+  # Enable expansion for template expansion.
+  AZURE_PARAMETER_FILE_EXPANSION: true
+```
+
+Example test command-line:
+
+```powershell
+# STEP 3: Test Azure Infrastructure as Code
+Assert-PSRule -Module 'PSRule.Rules.CAF' -Format File -InputPath '.';
+```
+
+### Troubleshooting expansion
+
+A number of issues can occur when expanding Azure templates or Bicep source files.
+Or you may not get any results at all if expansion is not configured.
+See the following topics:
+
+- [Expanding source files - limitations](https://azure.github.io/PSRule.Rules.Azure/expanding-source-files/#limitations)
+- [Using template](https://azure.github.io/PSRule.Rules.Azure/using-templates/)
+- [Using Bicep source](https://azure.github.io/PSRule.Rules.Azure/using-bicep/)
 
 ### Export in-flight resource data
 
