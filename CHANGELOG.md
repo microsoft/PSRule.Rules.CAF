@@ -2,21 +2,24 @@
 
 ## Unreleased
 
+- Engineering:
+  - Bump Pester to 5.3.2. [#101](https://github.com/microsoft/PSRule.Rules.CAF/pull/101)
+
 ## v0.4.0-B2204019 (pre-release)
 
 What's changed since pre-release v0.4.0-B2204008:
 
 - Engineering:
-  - Bump PSRule dependency to v2.0.1. [#99](https://github.com/microsoft/PSRule.Rules.CAF/pull/99)
-  - Bump PSRule.Rules.Azure dependency to v1.14.3. [#99](https://github.com/microsoft/PSRule.Rules.CAF/pull/99)
+  - Bump PSRule to v2.0.1. [#99](https://github.com/microsoft/PSRule.Rules.CAF/pull/99)
+  - Bump PSRule.Rules.Azure to v1.14.3. [#99](https://github.com/microsoft/PSRule.Rules.CAF/pull/99)
 
 ## v0.4.0-B2204008 (pre-release)
 
 What's changed since v0.3.0:
 
 - Engineering:
-  - Bump PSRule dependency to v2.0.0. [#90](https://github.com/microsoft/PSRule.Rules.CAF/pull/90)
-  - Bump PSRule.Rules.Azure dependency to v1.14.1. [#94](https://github.com/microsoft/PSRule.Rules.CAF/pull/94)
+  - Bump PSRule to v2.0.0. [#90](https://github.com/microsoft/PSRule.Rules.CAF/pull/90)
+  - Bump PSRule.Rules.Azure to v1.14.1. [#94](https://github.com/microsoft/PSRule.Rules.CAF/pull/94)
 
 ## v0.3.0
 
@@ -25,8 +28,8 @@ What's changed since v0.2.0:
 - General improvements:
   - Updated default baseline to use module configuration. [#79](https://github.com/microsoft/PSRule.Rules.CAF/issues/79)
 - Engineering:
-  - Bump PSRule dependency to v1.9.0. [#77](https://github.com/microsoft/PSRule.Rules.CAF/issues/77)
-  - Bump PSRule.Rules.Azure dependency to v1.9.1. [#78](https://github.com/microsoft/PSRule.Rules.CAF/issues/78)
+  - Bump PSRule to v1.9.0. [#77](https://github.com/microsoft/PSRule.Rules.CAF/issues/77)
+  - Bump PSRule.Rules.Azure to v1.9.1. [#78](https://github.com/microsoft/PSRule.Rules.CAF/issues/78)
 
 What's changed since pre-release v0.3.0-B2111006:
 
@@ -39,8 +42,8 @@ What's changed since v0.2.0:
 - General improvements:
   - Updated default baseline to use module configuration. [#79](https://github.com/microsoft/PSRule.Rules.CAF/issues/79)
 - Engineering:
-  - Bump PSRule dependency to v1.9.0. [#77](https://github.com/microsoft/PSRule.Rules.CAF/issues/77)
-  - Bump PSRule.Rules.Azure dependency to v1.9.1. [#78](https://github.com/microsoft/PSRule.Rules.CAF/issues/78)
+  - Bump PSRule to v1.9.0. [#77](https://github.com/microsoft/PSRule.Rules.CAF/issues/77)
+  - Bump PSRule.Rules.Azure to v1.9.1. [#78](https://github.com/microsoft/PSRule.Rules.CAF/issues/78)
 
 ## v0.2.0
 
@@ -54,8 +57,8 @@ What's changed since v0.1.0:
     - Check that EventGrid Topics use a standard name prefix `evgt-`. [#63](https://github.com/microsoft/PSRule.Rules.CAF/issues/63)
     - Check that EventGrid System Topics use a standard name prefix `evgt-`. [#63](https://github.com/microsoft/PSRule.Rules.CAF/issues/63)
 - Engineering:
-  - Bump PSRule dependency to v1.3.0. [#69](https://github.com/microsoft/PSRule.Rules.CAF/issues/69)
-  - Bump PSRule.Rules.Azure dependency to v1.3.2. [#69](https://github.com/microsoft/PSRule.Rules.CAF/issues/69)
+  - Bump PSRule to v1.3.0. [#69](https://github.com/microsoft/PSRule.Rules.CAF/issues/69)
+  - Bump PSRule.Rules.Azure to v1.3.2. [#69](https://github.com/microsoft/PSRule.Rules.CAF/issues/69)
 
 What's changed since pre-release v0.2.0-B2105004:
 
@@ -66,8 +69,8 @@ What's changed since pre-release v0.2.0-B2105004:
 What's changed since pre-release v0.2.0-B2104002:
 
 - Engineering:
-  - Bump PSRule dependency to v1.3.0. [#69](https://github.com/microsoft/PSRule.Rules.CAF/issues/69)
-  - Bump PSRule.Rules.Azure dependency to v1.3.2. [#69](https://github.com/microsoft/PSRule.Rules.CAF/issues/69)
+  - Bump PSRule to v1.3.0. [#69](https://github.com/microsoft/PSRule.Rules.CAF/issues/69)
+  - Bump PSRule.Rules.Azure to v1.3.2. [#69](https://github.com/microsoft/PSRule.Rules.CAF/issues/69)
 
 ## v0.2.0-B2104002 (pre-release)
 
@@ -81,8 +84,8 @@ What's changed since v0.1.0:
     - Check that EventGrid Topics use a standard name prefix `evgt-`. [#63](https://github.com/microsoft/PSRule.Rules.CAF/issues/63)
     - Check that EventGrid System Topics use a standard name prefix `evgt-`. [#63](https://github.com/microsoft/PSRule.Rules.CAF/issues/63)
 - Engineering:
-  - Bump PSRule dependency to v1.2.0. [#61](https://github.com/microsoft/PSRule.Rules.CAF/issues/61)
-  - Bump PSRule.Rules.Azure dependency to v1.2.0. [#61](https://github.com/microsoft/PSRule.Rules.CAF/issues/61)
+  - Bump PSRule to v1.2.0. [#61](https://github.com/microsoft/PSRule.Rules.CAF/issues/61)
+  - Bump PSRule.Rules.Azure to v1.2.0. [#61](https://github.com/microsoft/PSRule.Rules.CAF/issues/61)
 
 ## v0.1.0
 
@@ -97,8 +100,8 @@ What's changed since pre-release v0.1.0-B2101013:
 What's changed since pre-release v0.1.0-B2101004:
 
 - Engineering:
-  - Bump PSRule dependency to v1.0.1. [#49](https://github.com/microsoft/PSRule.Rules.CAF/issues/49)
-  - Bump PSRule.Rules.Azure dependency to v0.19.0. [#49](https://github.com/microsoft/PSRule.Rules.CAF/issues/49)
+  - Bump PSRule to v1.0.1. [#49](https://github.com/microsoft/PSRule.Rules.CAF/issues/49)
+  - Bump PSRule.Rules.Azure to v0.19.0. [#49](https://github.com/microsoft/PSRule.Rules.CAF/issues/49)
 - Bug fixes:
   - Fixed storage account name rule with Azure Cloud Shell. [#47](https://github.com/microsoft/PSRule.Rules.CAF/issues/47)
 
@@ -120,7 +123,7 @@ What's changed since pre-release v0.1.0-B2009009:
     - Renamed `CAF.Tag.Required` to `CAF.Tag.Resource`.
     - Moved resource group tagging requirements from `CAF.Tag.Resource` to `CAF.Tag.ResourceGroup`.
 - Engineering:
-  - Bump PSRule dependency to v1.0.0. [#37](https://github.com/microsoft/PSRule.Rules.CAF/issues/37)
+  - Bump PSRule to v1.0.0. [#37](https://github.com/microsoft/PSRule.Rules.CAF/issues/37)
 
 ## v0.1.0-B2009009 (pre-release)
 
@@ -131,7 +134,7 @@ What's changed since pre-release v0.1.0-B2008005:
   - Updated naming rules to check for recommended naming prefixes. [#29](https://github.com/microsoft/PSRule.Rules.CAF/issues/29)
     - Checks to determine if a resource name is valid are available in `PSRule.Rules.Azure`.
 - Engineering:
-  - Bump PSRule dependency to v0.20.0. [#24](https://github.com/microsoft/PSRule.Rules.CAF/issues/24)
+  - Bump PSRule to v0.20.0. [#24](https://github.com/microsoft/PSRule.Rules.CAF/issues/24)
 - Bug fixes:
   - Fixed Storage Account `st` prefix. [#28](https://github.com/microsoft/PSRule.Rules.CAF/issues/28)
   - Fixed Virtual Network Gateway `vgw-` prefix. [#30](https://github.com/microsoft/PSRule.Rules.CAF/issues/30)
