@@ -3,7 +3,7 @@
 ## Unreleased
 
 - Engineering:
-  - Bump Pester to 5.3.2. [#101](https://github.com/microsoft/PSRule.Rules.CAF/pull/101)
+  - Bump Pester to 5.3.3. [#106](https://github.com/microsoft/PSRule.Rules.CAF/pull/106)
 
 ## v0.4.0-B2204019 (pre-release)
 
