@@ -2,7 +2,11 @@
 
 ## Unreleased
 
+What's changed since pre-release v0.4.0-B2204019:
+
 - Engineering:
+  - Bump PSRule to v2.1.0. [#107](https://github.com/microsoft/PSRule.Rules.CAF/pull/107)
+  - Bump PSRule.Rules.Azure to v1.15.0. [#107](https://github.com/microsoft/PSRule.Rules.CAF/pull/107)
   - Bump Pester to 5.3.3. [#106](https://github.com/microsoft/PSRule.Rules.CAF/pull/106)
 
 ## v0.4.0-B2204019 (pre-release)
