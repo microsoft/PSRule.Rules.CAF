@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+What's changed since pre-release v0.4.0-B2205006:
+
+- Engineering:
+  - Bump PSRule.Rules.Azure to v1.15.2. [#110](https://github.com/microsoft/PSRule.Rules.CAF/pull/110)
+
 ## v0.4.0-B2205006 (pre-release)
 
 What's changed since pre-release v0.4.0-B2204019:
