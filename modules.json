@@ -1,10 +1,10 @@
 {
   "dependencies": {
     "PSRule": {
-      "version": "2.1.0"
+      "version": "2.2.0"
     },
     "PSRule.Rules.Azure": {
-      "version": "1.16.1"
+      "version": "1.17.1"
     }
   },
   "devDependencies": {
