@@ -5,32 +5,42 @@
 What's changed since pre-release v0.4.0-B2205006:
 
 - Engineering:
-  - Bump PSRule.Rules.Azure to v1.16.1. [#112](https://github.com/microsoft/PSRule.Rules.CAF/pull/112)
+  - Bump PSRule to v2.2.0.
+    [#113](https://github.com/microsoft/PSRule.Rules.CAF/pull/113)
+  - Bump PSRule.Rules.Azure to v1.17.1.
+    [#113](https://github.com/microsoft/PSRule.Rules.CAF/pull/113)
 
 ## v0.4.0-B2205006 (pre-release)
 
 What's changed since pre-release v0.4.0-B2204019:
 
 - Engineering:
-  - Bump PSRule to v2.1.0. [#107](https://github.com/microsoft/PSRule.Rules.CAF/pull/107)
-  - Bump PSRule.Rules.Azure to v1.15.0. [#107](https://github.com/microsoft/PSRule.Rules.CAF/pull/107)
-  - Bump Pester to 5.3.3. [#106](https://github.com/microsoft/PSRule.Rules.CAF/pull/106)
+  - Bump PSRule to v2.1.0.
+    [#107](https://github.com/microsoft/PSRule.Rules.CAF/pull/107)
+  - Bump PSRule.Rules.Azure to v1.15.0.
+    [#107](https://github.com/microsoft/PSRule.Rules.CAF/pull/107)
+  - Bump Pester to 5.3.3.
+    [#106](https://github.com/microsoft/PSRule.Rules.CAF/pull/106)
 
 ## v0.4.0-B2204019 (pre-release)
 
 What's changed since pre-release v0.4.0-B2204008:
 
 - Engineering:
-  - Bump PSRule to v2.0.1. [#99](https://github.com/microsoft/PSRule.Rules.CAF/pull/99)
-  - Bump PSRule.Rules.Azure to v1.14.3. [#99](https://github.com/microsoft/PSRule.Rules.CAF/pull/99)
+  - Bump PSRule to v2.0.1.
+    [#99](https://github.com/microsoft/PSRule.Rules.CAF/pull/99)
+  - Bump PSRule.Rules.Azure to v1.14.3.
+    [#99](https://github.com/microsoft/PSRule.Rules.CAF/pull/99)
 
 ## v0.4.0-B2204008 (pre-release)
 
 What's changed since v0.3.0:
 
 - Engineering:
-  - Bump PSRule to v2.0.0. [#90](https://github.com/microsoft/PSRule.Rules.CAF/pull/90)
-  - Bump PSRule.Rules.Azure to v1.14.1. [#94](https://github.com/microsoft/PSRule.Rules.CAF/pull/94)
+  - Bump PSRule to v2.0.0.
+    [#90](https://github.com/microsoft/PSRule.Rules.CAF/pull/90)
+  - Bump PSRule.Rules.Azure to v1.14.1.
+    [#94](https://github.com/microsoft/PSRule.Rules.CAF/pull/94)
 
 ## v0.3.0
 
