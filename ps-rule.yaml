@@ -6,7 +6,7 @@
 # https://aka.ms/ps-rule/options
 
 requires:
-  PSRule: '@pre >=1.11.1'
+  PSRule: '@pre >=2.2.0'
 
 input:
   pathIgnore:
