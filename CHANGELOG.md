@@ -5,10 +5,12 @@
 What's changed since pre-release v0.4.0-B2208003:
 
 - Engineering:
-  - Bump PSRule to v2.6.0.
-    [#116](https://github.com/microsoft/PSRule.Rules.CAF/pull/116)
-  - Bump PSRule.Rules.Azure to v1.22.1.
-    [#116](https://github.com/microsoft/PSRule.Rules.CAF/pull/116)
+  - Bump PSRule to v2.7.0.
+    [#127](https://github.com/microsoft/PSRule.Rules.CAF/pull/127)
+  - Bump PSRule.Rules.Azure to v1.24.2.
+    [#127](https://github.com/microsoft/PSRule.Rules.CAF/pull/127)
+  - Bump Pester to v5.4.0.
+    [#127](https://github.com/microsoft/PSRule.Rules.CAF/pull/127)
   - Bump PSScriptAnalyzer to v1.21.0.
     [#116](https://github.com/microsoft/PSRule.Rules.CAF/pull/116)
 
