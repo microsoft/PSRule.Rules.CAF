@@ -38,5 +38,9 @@
         "text",
         "yaml",
         "yml"
+    ],
+    "git.branchProtection": [
+        "main",
+        "release/*"
     ]
 }
