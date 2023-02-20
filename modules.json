@@ -1,15 +1,15 @@
 {
   "dependencies": {
     "PSRule": {
-      "version": "2.6.0"
+      "version": "2.7.0"
     },
     "PSRule.Rules.Azure": {
-      "version": "1.22.1"
+      "version": "1.24.2"
     }
   },
   "devDependencies": {
     "Pester": {
-      "version": "5.3.3"
+      "version": "5.4.0"
     },
     "platyPS": {
       "version": "0.14.2"
