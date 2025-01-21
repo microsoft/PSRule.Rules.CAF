@@ -45,7 +45,7 @@ CAF_LocalNetworkGatewayPrefix | `lgw-`
 CAF_VirtualNetworkGatewayPrefix | `vgw-`
 CAF_GatewayConnectionPrefix | `cn-`
 CAF_ApplicationGatewayPrefix | `agw-`
-CAF_RouteTablePrefix | `route-`
+CAF_RouteTablePrefix | `rt-`
 CAF_TrafficManagerProfilePrefix | `traf-`
 CAF_FrontDoorPrefix | `fd-`
 CAF_CDNProfilePrefix | `cdnp-`

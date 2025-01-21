@@ -265,11 +265,12 @@ Describe 'CAF.Name' -Tag 'name' {
     Context 'CAF.Name.Route' {
         BeforeDiscovery {
             $validNames = @(
-                'route-test-001'
+                'rt-test-001'
             )
             $invalidNames = @(
                 'route-Test-001'
                 'routetest001'
+                'route-test-001'
                 'test-route-001'
             )
         }
