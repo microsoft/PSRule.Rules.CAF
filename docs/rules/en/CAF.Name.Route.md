@@ -15,7 +15,7 @@ Route table names should use a standard prefix.
 An effective naming convention allows operators to quickly identify resource type, associated workload,
 deployment environment and Azure region.
 
-For route tables, the Cloud Adoption Framework recommends using the `route-` prefix.
+For route tables, the Cloud Adoption Framework recommends using the `rt-` prefix.
 
 Requirements for route table names:
 
