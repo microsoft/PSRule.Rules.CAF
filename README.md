@@ -2,25 +2,25 @@
 
 A suite of rules to validate Azure resources against the Cloud Adoption Framework (CAF) using PSRule.
 
-![ci-badge]
+> [!NOTE]
+> The features of PSRule for CAF have been [consolidated into PSRule for Azure][1] as of v1.43.0 and
+> this repository is now archived. Consider [migrating your configuration to use PSRule for Azure][2].
+>
+> You may still continue to download and use this module from source or the PowerShell Gallery,
+> but it will not receive any further updates or support.
+>
+> Please log any new issues at <https://github.com/Azure/PSRule.Rules.Azure/issues>
+
+  [1]: https://azure.github.io/PSRule.Rules.Azure/updates/v1.43/
+  [2]: https://azure.github.io/PSRule.Rules.Azure/setup/setup-naming-and-tagging/
+
+---
 
 Features of PSRule for CAF include:
 
 - [Ready to go](docs/features.md#ready-to-go) - Leverage configurable rules to validate Azure resources.
 - [DevOps](docs/features.md#devops) - Validate resources and infrastructure code pre or post-deployment.
 - [Cross-platform](docs/features.md#cross-platform) - Run on MacOS, Linux, and Windows.
-
-## Support
-
-This project uses GitHub Issues to track bugs and feature requests.
-Please search the existing issues before filing new issues to avoid duplicates.
-
-- For new issues, file your bug or feature request as a new [issue].
-- For help, discussion, and support questions about using this project, join or start a [discussion].
-
-If you have any problems with the [PSRule][engine] engine, please check the project GitHub [issues](https://github.com/Microsoft/PSRule/issues) page instead.
-
-Support for this project/ product is limited to the resources listed above.
 
 ## Getting the modules
 
@@ -294,11 +294,6 @@ For a list of module changes please see the [change log](CHANGELOG.md).
 > Pre-release versions should be considered experimental.
 > Modules and change log details for pre-releases will be removed as standard releases are made available.
 
-## Contributing
-
-This project welcomes contributions and suggestions.
-If you are ready to contribute, please visit the [contribution guide](CONTRIBUTING.md).
-
 ## Code of Conduct
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
@@ -316,10 +311,7 @@ This project is [licensed under the MIT License](LICENSE).
 [issue]: https://github.com/Microsoft/PSRule.Rules.CAF/issues
 [discussion]: https://github.com/microsoft/PSRule.Rules.CAF/discussions
 [install]: docs/install-instructions.md
-[ci-badge]: https://dev.azure.com/bewhite/PSRule.Rules.CAF/_apis/build/status/PSRule.Rules.CAF-CI?branchName=main
 [module]: https://www.powershellgallery.com/packages/PSRule.Rules.CAF
 [engine]: https://github.com/Microsoft/PSRule
-[chat]: https://gitter.im/PSRule/PSRule.Rules.CAF?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge
-[chat-badge]: https://img.shields.io/static/v1.svg?label=chat&message=on%20gitter&color=informational&logo=gitter
 [create-workflow]: https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file
 [extension]: https://marketplace.visualstudio.com/items?itemName=bewhite.ps-rule
